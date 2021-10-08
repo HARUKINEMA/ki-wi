@@ -7,6 +7,7 @@ https://ie.u-ryukyu.ac.jp/~e195752/enpit/index.html
 ## リリースノート
 
 - ページを開くと工学部周辺の自販機一覧がリストで表示されるようになりました。
+- mapboxからgoogleapiに変更しました
 
 
 ## エレベーターピッチ
