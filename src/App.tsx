@@ -1,5 +1,9 @@
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname+'/.env' });
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import React from "react";
+
+
 const containerStyle = {
   width: "400px",
   height: "400px",
@@ -21,8 +25,10 @@ const position2 = {
 };
 
 const MyComponent = () => {
+  const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
+  console.log(api);
   return (
-    <LoadScript googleMapsApiKey="">
+    <LoadScript googleMapsApiKey={api}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
         <Marker position={position1} />
         <Marker position={position2} />
