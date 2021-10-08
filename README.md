@@ -14,7 +14,7 @@ https://ie.u-ryukyu.ac.jp/~e195752/enpit/index.html
 
 ```
 近場の自販機に欲しい飲み物があるか分からない問題 を解決したい
- haruki@キーウィ鳥(観光客) 向けの
+(観光客) 向けの
 動かずに飲み物を検索 を実現する
 Do link a map to a drink です。
 これは  各自販機内の商品把握 ができ、
