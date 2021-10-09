@@ -22,7 +22,7 @@ const MyComponent = (): JSX.Element => {
       lng: item.location[0],
       lat: item.location[1],
     };
-    const element = <Marker key={locate.lat+locate.lng} position={locate} />;
+    const element = <Marker key={locate.lat + locate.lng} position={locate} />;
     /*keyの中身は要相談*/
     elements.push(element);
   }
