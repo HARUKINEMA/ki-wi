@@ -11,7 +11,7 @@ const MyComponent = (): JSX.Element => {
   };
 
   const center = {
-    lng: 127.76666539719781   ,
+    lng: 127.76666539719781,
     lat: 26.25334632814227,
   };
 
