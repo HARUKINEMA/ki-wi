@@ -1,0 +1,27 @@
+name: lint&fmt
+
+on:
+  pull_request:
+    types: [ opened, synchronize, ready_for_review ]
+
+env:
+  FILE_PATTERN: "src/**/*.{ts,tsx,js,jsx}"
+
+jobs:
+  lint_and_fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: install
+        run: npm i
+      - name: Run eslint
+        run: npm run fix
+      - name: Run Prettier
+        run: |
+          npx prettier --write ${FILE_PATTERN}
+      - uses: stefanzweifel/git-auto-commit-action@v3.0.0
+        with:
+          commit_message: Apply Prettier Change
