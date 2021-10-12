@@ -1,34 +1,43 @@
+import * as dotenv from "dotenv";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import React from "react";
-const containerStyle = {
-  width: "400px",
-  height: "400px",
-};
+import * as data from "./drinking_machine.json";
 
-const center = {
-  lng: 127.76666539719781,
-  lat: 26.25334632814227,
-};
+const Map = (): JSX.Element => {
+  dotenv.config();
+  const containerStyle = {
+    width: "400px",
+    height: "400px",
+  };
 
-const position1 = {
-  lng: 127.76666539719781,
-  lat: 26.25334632814227,
-};
+  const center = {
+    lng: 127.76666539719781,
+    lat: 26.25334632814227,
+  };
 
-const position2 = {
-  lng: 127.76635827657901,
-  lat: 26.253525552761033,
-};
+  const markerJsx: JSX.Element[] = [];
 
-const MyComponent = () => {
+  for (const machine of data.machines) {
+    const location = {
+      lng: machine.location[0],
+      lat: machine.location[1],
+    };
+    const element = (
+      <Marker key={location.lat + location.lng} position={location} />
+    );
+    /*keyの中身は要相談*/
+    markerJsx.push(element);
+  }
+
+  const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
   return (
-    <LoadScript googleMapsApiKey="">
+    <LoadScript googleMapsApiKey={api}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
-        <Marker position={position1} />
-        <Marker position={position2} />
+        <Marker position={center} />
+        {markerJsx}
       </GoogleMap>
     </LoadScript>
   );
 };
 
-export default MyComponent;
+export default Map;
