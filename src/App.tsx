@@ -22,7 +22,9 @@ const Map = (): JSX.Element => {
       lng: machine.location[0],
       lat: machine.location[1],
     };
-    const element = <Marker key={location.lat + location.lng} position={location} />;
+    const element = (
+      <Marker key={location.lat + location.lng} position={location} />
+    );
     /*keyの中身は要相談*/
     markerJsx.push(element);
   }
