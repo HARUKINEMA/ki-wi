@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-export enum CheckBoxType {
-  FACTORY_OF_ENGINEERING_BUILDING,
-  COMMON_EDUCATIONAL_BUILDING,
+export enum Building {
+  FACTORY_OF_ENGINEERING,
+  COMMON_EDUCATIONAL,
 }
 
 export interface CheckBoxProps {
   label: string;
-  type: CheckBoxType;
+  building: Building;
   isChecked: boolean;
-  handleLocationChange: (isCheck: boolean, type: CheckBoxType) => void;
+  toggleCheckBox: (isCheck: boolean, type: Building) => void;
 }
 
 const CheckBox = (props: CheckBoxProps): JSX.Element => {
@@ -17,7 +17,7 @@ const CheckBox = (props: CheckBoxProps): JSX.Element => {
 
   const toggleCheckBox = (): void => {
     // https://ja.reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous
-    props.handleLocationChange(!isChecked, props.type);
+    props.toggleCheckBox(!isChecked, props.building);
     setIsChecked(!isChecked);
   };
 

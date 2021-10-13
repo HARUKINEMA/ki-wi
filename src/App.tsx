@@ -1,9 +1,9 @@
 import React from "react";
 import Map from "./Map";
-import CheckBox, { CheckBoxProps, CheckBoxType } from "./CheckBox";
+import CheckBox, { CheckBoxProps, Building } from "./CheckBox";
 
 const App = (): JSX.Element => {
-  const checkBoxChanged = (isChecked: boolean, type: CheckBoxType) => {
+  const checkBoxChanged = (isChecked: boolean, type: Building) => {
     console.log(isChecked);
     console.log("type is " + type.toString());
   };
@@ -11,29 +11,31 @@ const App = (): JSX.Element => {
   const checkBoxProps: CheckBoxProps[] = [
     {
       label: "工学部",
-      type: CheckBoxType.FACTORY_OF_ENGINEERING_BUILDING,
+      building: Building.FACTORY_OF_ENGINEERING,
       isChecked: false,
-      handleLocationChange: checkBoxChanged,
+      toggleCheckBox: checkBoxChanged,
     },
     {
       label: "共通教育",
-      type: CheckBoxType.COMMON_EDUCATIONAL_BUILDING,
+      building: Building.COMMON_EDUCATIONAL,
       isChecked: false,
-      handleLocationChange: checkBoxChanged,
+      toggleCheckBox: checkBoxChanged,
     },
   ];
 
-  const checkBoxJsx: JSX.Element[] = checkBoxProps.map((checkBox, idx) => {
-    return (
-      <CheckBox
-        label={checkBox.label}
-        type={checkBox.type}
-        isChecked={checkBox.isChecked}
-        handleLocationChange={checkBox.handleLocationChange}
-        key={idx}
-      />
-    );
-  });
+  const checkBoxJsx: JSX.Element[] = checkBoxProps.map(
+    (checkBox: CheckBoxProps, idx: number) => {
+      return (
+        <CheckBox
+          label={checkBox.label}
+          building={checkBox.building}
+          isChecked={checkBox.isChecked}
+          toggleCheckBox={checkBox.toggleCheckBox}
+          key={idx}
+        />
+      );
+    }
+  );
 
   return (
     <div>
