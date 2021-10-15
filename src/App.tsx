@@ -1,11 +1,15 @@
 import React from "react";
 import Map from "./Map";
 import CheckBox, { CheckBoxProps, Building } from "./CheckBox";
+import { MapContext } from "@react-google-maps/api";
 
 const App = (): JSX.Element => {
+
+
   const checkBoxChanged = (isChecked: boolean, type: Building) => {
     console.log(isChecked);
     console.log("type is " + type.toString());
+    console.log(MapContext);
   };
 
   const checkBoxProps: CheckBoxProps[] = [
