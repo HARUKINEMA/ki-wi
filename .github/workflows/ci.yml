@@ -15,14 +15,10 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - uses: actions/cache@v2
+      - uses: actions/setup-node@v2
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
+          node-version: '14'
+          cache: npm
 
       - name: install
         run: npm i
