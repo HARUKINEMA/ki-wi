@@ -14,13 +14,22 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
+
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
       - uses: actions/setup-node@v1
         with:
           node-version: 14.x
+
       - name: install
         run: npm i
+
       - name: Run eslint
         run: npm run fix
+
       - name: Run Prettier
         run: |
           npx prettier --write ${FILE_PATTERN}
