@@ -1,8 +1,13 @@
 import * as dotenv from "dotenv";
-import { GoogleMap, InfoWindow, LoadScript, Marker } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  InfoWindow,
+  LoadScript,
+  Marker,
+} from "@react-google-maps/api";
 import React from "react";
 import * as data from "./drinking_machine.json";
-import { INSPECT_MAX_BYTES } from "buffer";
+/*import { INSPECT_MAX_BYTES } from "buffer";*/
 
 const Map = (): JSX.Element => {
   dotenv.config();
@@ -19,7 +24,6 @@ const Map = (): JSX.Element => {
   const markerJsx: JSX.Element[] = [];
   const popupJsx: JSX.Element[] = [];
 
-
   for (const machine of data.machines) {
     const location = {
       lng: machine.location[0],
@@ -30,23 +34,25 @@ const Map = (): JSX.Element => {
     );
     /*keyの中身は要相談*/
     markerJsx.push(element);
-    
+
     const element_popup = (
-      <InfoWindow key={location.lat + location.lng} position={location} />
+      <InfoWindow key={location.lat + location.lng} position={location} >
+        <div>aa</div>
+      </InfoWindow >
     );
 
     popupJsx.push(element_popup);
+    console.log(markerJsx);
   }
 
   const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
   return (
     <LoadScript googleMapsApiKey={api}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
-        <Marker position={center} />
+        <>
+        {/* マーカー */}
         {markerJsx}
-        <InfoWindow position={center} />
-        {popupJsx}
-
+        </>
       </GoogleMap>
     </LoadScript>
   );
