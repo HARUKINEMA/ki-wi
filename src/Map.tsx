@@ -6,6 +6,7 @@ import * as data from "./drinking_machine.json";
 export interface MapProps {
   lngprop: number;
   latprop: number;
+  setCenter: () => void;
 }
 
 const Map = (props: MapProps): JSX.Element => {
