@@ -5,12 +5,13 @@ import {
   LoadScript,
   Marker,
 } from "@react-google-maps/api";
-import React from "react";
+import React, { useState } from "react";
 import * as data from "./drinking_machine.json";
 /*import { INSPECT_MAX_BYTES } from "buffer";*/
 
 const Map = (): JSX.Element => {
   dotenv.config();
+  const [ispopup, setIspopup] = useState<JSX.Element>();
   const containerStyle = {
     width: "400px",
     height: "400px",
@@ -34,7 +35,7 @@ const Map = (): JSX.Element => {
         key={location.lat + location.lng}
         position={location}
         onClick={() => {
-          console.log();
+          setIspopup(popupJsx[0])
         }}
       ></Marker>
     );
@@ -42,7 +43,8 @@ const Map = (): JSX.Element => {
     markerJsx.push(element);
 
     const element_popup = (
-      <InfoWindow key={location.lat + location.lng} position={location}>
+      <InfoWindow key={location.lat + location.lng} position={location} 
+      onCloseClick={() => {setIspopup(<div></div>)}}>
         <div>aa</div>
       </InfoWindow>
     );
@@ -58,6 +60,7 @@ const Map = (): JSX.Element => {
         <>
           {/* マーカー */}
           {markerJsx}
+          {ispopup}
         </>
       </GoogleMap>
     </LoadScript>
