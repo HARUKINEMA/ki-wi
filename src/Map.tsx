@@ -1,9 +1,16 @@
 import * as dotenv from "dotenv";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import React from "react";
+import React, { useState } from "react";
 import * as data from "./drinking_machine.json";
 
-const Map = (): JSX.Element => {
+export interface MapProps {
+  lngprop:number;
+  latprop:number;
+}
+
+const Map = (props:MapProps): JSX.Element => {
+  const [lngstate, setlngstate] = useState<number>(props.lngprop);
+  const [latstate, setlatstate] = useState<number>(props.latprop);
   dotenv.config();
   const containerStyle = {
     width: "400px",
