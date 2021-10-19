@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import * as data from "./drinking_machine.json";
 
 export interface MapProps {
-  lngprop:number;
-  latprop:number;
+  lngprop: number;
+  latprop: number;
 }
 
-const Map = (props:MapProps): JSX.Element => {
+const Map = (props: MapProps): JSX.Element => {
   const [lngstate, setlngstate] = useState<number>(props.lngprop);
   const [latstate, setlatstate] = useState<number>(props.latprop);
   dotenv.config();
@@ -18,11 +18,16 @@ const Map = (props:MapProps): JSX.Element => {
   };
 
   const center = {
-    lng: 127.76666539719781,
-    lat: 26.25334632814227,
+    lng: props.lngprop,
+    lat: props.latprop,
   };
 
   const markerJsx: JSX.Element[] = [];
+
+  const changeCenter = (): void => {
+    center.lng = Number(setlngstate(0));
+    center.lat = Number(setlatstate(0));
+  };
 
   for (const machine of data.machines) {
     const location = {

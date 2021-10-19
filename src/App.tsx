@@ -41,7 +41,7 @@ const App = (): JSX.Element => {
 
   return (
     <div>
-      <Map />
+      <Map lngprop={127.76666539719781} latprop={26.25334632814227} />
       {checkBoxJsx}
     </div>
   );
