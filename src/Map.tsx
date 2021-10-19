@@ -6,8 +6,10 @@ import * as data from "./drinking_machine.json";
 const Map = (): JSX.Element => {
   dotenv.config();
   const containerStyle = {
-    width: "400px",
-    height: "400px",
+    width: "100%",
+    height: "90vh",
+    marginTop: "20px",
+    marginBottom: "20px",
   };
 
   const center = {
