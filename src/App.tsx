@@ -30,15 +30,21 @@ const Map = (): JSX.Element => {
       lat: machine.location[1],
     };
     const element = (
-      <Marker key={location.lat + location.lng} position={location} />
+      <Marker
+        key={location.lat + location.lng}
+        position={location}
+        onClick={() => {
+          console.log();
+        }}
+      ></Marker>
     );
     /*keyの中身は要相談*/
     markerJsx.push(element);
 
     const element_popup = (
-      <InfoWindow key={location.lat + location.lng} position={location} >
+      <InfoWindow key={location.lat + location.lng} position={location}>
         <div>aa</div>
-      </InfoWindow >
+      </InfoWindow>
     );
 
     popupJsx.push(element_popup);
@@ -50,8 +56,8 @@ const Map = (): JSX.Element => {
     <LoadScript googleMapsApiKey={api}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
         <>
-        {/* マーカー */}
-        {markerJsx}
+          {/* マーカー */}
+          {markerJsx}
         </>
       </GoogleMap>
     </LoadScript>
