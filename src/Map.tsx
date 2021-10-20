@@ -6,8 +6,10 @@ import * as data from "./drinking_machine.json";
 export interface MapProps {
   lngprop: number;
   latprop: number;
-  setCenter: () => void;
+  setCenter:()=>void;
+  changeMarker : (setMarker :React.SetStateAction<Marker>) => void;
 }
+
 
 const Map = (props: MapProps): JSX.Element => {
   const [lngstate, setlngstate] = useState<number>(props.lngprop);

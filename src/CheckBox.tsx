@@ -17,11 +17,15 @@ export interface CheckBoxProps {
 const CheckBox = (props: CheckBoxProps): JSX.Element => {
   const [isChecked, setIsChecked] = useState<boolean>(props.isChecked);
 
+  const setCenter = () =>{
+    alert("cuienvcuso");
+  }
+
   const toggleCheckBox = (): void => {
     // https://ja.reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous
     props.toggleCheckBox(!isChecked, props.building);
     setIsChecked(!isChecked);
-
+    setCenter;
   };
 
   return (
@@ -32,8 +36,7 @@ const CheckBox = (props: CheckBoxProps): JSX.Element => {
         defaultChecked={isChecked}
         onChange={toggleCheckBox}
       />
-      <Map lngprop={props.Maplng} latprop={props.Maplat} setCenter={function (): void {console.log("Function not implemented.");
-      } } />
+      <Map lngprop={props.Maplng} latprop={props.Maplat} setCenter={setCenter}/>
     </div>
   );
 };
