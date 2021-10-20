@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import React from "react";
+import React, { useEffect } from "react";
 import * as data from "./drinking_machine.json";
 
 const Map = (): JSX.Element => {
@@ -16,8 +16,17 @@ const Map = (): JSX.Element => {
     lng: 127.76666539719781,
     lat: 26.25334632814227,
   };
-
   const markerJsx: JSX.Element[] = [];
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((value) => {
+      const location = {
+        lng: value.coords.latitude,
+        lat: value.coords.latitude,
+      };
+      console.log(location);
+    });
+  });
 
   for (const machine of data.machines) {
     const location = {
@@ -30,7 +39,6 @@ const Map = (): JSX.Element => {
     /*keyの中身は要相談*/
     markerJsx.push(element);
   }
-
   const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
   return (
     <LoadScript googleMapsApiKey={api}>
