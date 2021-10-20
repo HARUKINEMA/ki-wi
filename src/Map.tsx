@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as data from "./drinking_machine.json";
 
 const Map = (): JSX.Element => {
@@ -17,16 +17,28 @@ const Map = (): JSX.Element => {
     lat: 26.25334632814227,
   };
   const markerJsx: JSX.Element[] = [];
+  const [myMarkerJsx, setMyMarkerJsx] = useState<JSX.Element>();
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((value) => {
-      const location = {
-        lng: value.coords.latitude,
-        lat: value.coords.latitude,
-      };
-      console.log(location);
-    });
-  });
+    navigator.geolocation.getCurrentPosition(
+      (value) => {
+        const location = {
+          lng: value.coords.longitude,
+          lat: value.coords.latitude,
+        };
+        console.log(location);
+        setMyMarkerJsx(
+          <Marker key={location.lat + location.lng} position={location} />
+        );
+      },
+      (error) => {
+        console.log(error.message);
+      },
+      {
+        enableHighAccuracy: true,
+      }
+    );
+  }, []);
 
   for (const machine of data.machines) {
     const location = {
@@ -45,6 +57,7 @@ const Map = (): JSX.Element => {
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
         <Marker position={center} />
         {markerJsx}
+        {myMarkerJsx}
       </GoogleMap>
     </LoadScript>
   );
