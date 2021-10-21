@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import * as data from "./drinking_machine.json";
 
 const Map = (): JSX.Element => {
+  const URL =
+    "https://4.bp.blogspot.com/-sdhuHWjgfCo/UYOsrFBf5RI/AAAAAAAARKs/THaabR1hDq4/s400/umi_kani.png";
   dotenv.config();
   const containerStyle = {
     width: "100%",
@@ -26,9 +28,16 @@ const Map = (): JSX.Element => {
           lng: value.coords.longitude,
           lat: value.coords.latitude,
         };
-        console.log(location);
+        const options: google.maps.Icon = {
+          url: URL,
+          scaledSize: new google.maps.Size(40, 40),
+        };
         setMyMarkerJsx(
-          <Marker key={location.lat + location.lng} position={location} />
+          <Marker
+            key={location.lat + location.lng}
+            position={location}
+            icon={options}
+          />
         );
       },
       (error) => {
@@ -38,6 +47,7 @@ const Map = (): JSX.Element => {
         enableHighAccuracy: true,
       }
     );
+    // [] つけないとレンダリングされる度に実行されるらしい
   }, []);
 
   for (const machine of data.machines) {
