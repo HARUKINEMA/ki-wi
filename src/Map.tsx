@@ -19,7 +19,7 @@ const Map = (): JSX.Element => {
     lat: 26.25334632814227,
   };
   const markerJsx: JSX.Element[] = [];
-  const [myMarkerJsx, setMyMarkerJsx] = useState<JSX.Element>();
+  const [myPositionMarkerJsx, setMyPositionMarkerJsx] = useState<JSX.Element>();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -32,7 +32,7 @@ const Map = (): JSX.Element => {
           url: URL,
           scaledSize: new google.maps.Size(40, 40),
         };
-        setMyMarkerJsx(
+        setMyPositionMarkerJsx(
           <Marker
             key={location.lat + location.lng}
             position={location}
@@ -67,7 +67,7 @@ const Map = (): JSX.Element => {
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
         <Marker position={center} />
         {markerJsx}
-        {myMarkerJsx}
+        {myPositionMarkerJsx}
       </GoogleMap>
     </LoadScript>
   );
