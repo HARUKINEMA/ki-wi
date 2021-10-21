@@ -1,38 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
+import Map, { MapProps, Location } from "./Map";
 import CheckBox, { CheckBoxProps, Building } from "./CheckBox";
-import { MapContext } from "@react-google-maps/api";
-/*<select>を使えば地図が1つのまま複数選択できるかも?*/
-/*Mapをstateで変化させるにはcheckBox:親,Map:子とする必要があるけどそれだとcheckboxごとにMapを描画することになるためcheckboxのインスタンスは1つにしたい*/
+
 const App = (): JSX.Element => {
   const checkBoxChanged = (isChecked: boolean, type: Building) => {
-    console.log(isChecked);
-    console.log("type is " + type.toString());
-    console.log(MapContext);
+    if (!isChecked) {
+      return;
+    }
+    let center: Location = {
+      lat: 0,
+      lng: 0,
+    };
+    if (type == Building.COMMON_EDUCATIONAL) {
+      center = {
+        lat: 26.247959375749655,
+        lng: 127.76733423620408,
+      };
+    } else if (type == Building.FACTORY_OF_ENGINEERING) {
+      center = {
+        lat: 26.25334632814227,
+        lng: 127.76666539719781,
+      };
+    }
+    setCenterState(center);
   };
 
-  const checkBoxProps: CheckBoxProps = 
+  const MapProp: MapProps = {
+    center: {
+      lat: 26.25334632814227,
+      lng: 127.76666539719781,
+    },
+  };
+
+  const [centerState, setCenterState] = useState<Location>(MapProp.center);
+
+  const checkBoxProps: CheckBoxProps[] = [
     {
-    label: "工学部",
-    building: Building.FACTORY_OF_ENGINEERING,
-    isChecked: false,
-    toggleCheckBox: checkBoxChanged,
-    Maplng: 127.76666539719781,
-    Maplat: 26.25334632814227,
-  }
-  
-  const checkBoxJsx: JSX.Element = 
-    <CheckBox
-      label={checkBoxProps.label}
-      building={checkBoxProps.building}
-      isChecked={checkBoxProps.isChecked}
-      toggleCheckBox={checkBoxProps.toggleCheckBox}
-      key={0} 
-      Maplng={checkBoxProps.Maplng} 
-      Maplat={checkBoxProps.Maplat}    
-    />
+      label: "工学部",
+      building: Building.FACTORY_OF_ENGINEERING,
+      isChecked: false,
+      toggleCheckBox: checkBoxChanged,
+    },
+    {
+      label: "共通教育",
+      building: Building.COMMON_EDUCATIONAL,
+      isChecked: false,
+      toggleCheckBox: checkBoxChanged,
+    },
+  ];
+
+  const checkBoxJsx: JSX.Element[] = checkBoxProps.map(
+    (checkBox: CheckBoxProps, idx: number) => {
+      return (
+        <CheckBox
+          label={checkBox.label}
+          building={checkBox.building}
+          isChecked={checkBox.isChecked}
+          toggleCheckBox={checkBox.toggleCheckBox}
+          key={idx}
+        />
+      );
+    }
+  );
 
   return (
     <div>
+      <Map center={centerState} />
       {checkBoxJsx}
     </div>
   );
