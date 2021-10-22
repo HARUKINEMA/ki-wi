@@ -25,14 +25,14 @@ const App = (): JSX.Element => {
     setCenterState(center);
   };
 
-  const MapProp: MapProps = {
+  const MapCenter: MapProps = {
     center: {
       lat: 26.25334632814227,
       lng: 127.76666539719781,
     },
   };
 
-  const [centerState, setCenterState] = useState<Location>(MapProp.center);
+  const [centerState, setCenterState] = useState<Location>(MapCenter.center);
 
   const checkBoxProps: CheckBoxProps[] = [
     {
