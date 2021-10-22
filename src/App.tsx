@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Map, { MapProps, Location } from "./Map";
 import CheckBox, { CheckBoxProps, Building } from "./CheckBox";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Col, Container, Row } from "react-bootstrap";
 
 const App = (): JSX.Element => {
   const checkBoxChanged = (isChecked: boolean, type: Building) => {
@@ -65,8 +67,14 @@ const App = (): JSX.Element => {
 
   return (
     <div>
-      <Map center={centerState} />
-      {checkBoxJsx}
+      <Container>
+        <Row>
+          <Col md={12}>
+            <Map center={centerState} />
+            {checkBoxJsx}
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
