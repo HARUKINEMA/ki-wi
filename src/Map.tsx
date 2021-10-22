@@ -1,9 +1,18 @@
 import * as dotenv from "dotenv";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import React, { useEffect, useState } from "react";
 import * as data from "./drinking_machine.json";
+import React, { useEffect, useState } from "react";
 
-const Map = (): JSX.Element => {
+export interface Location {
+  lat: number;
+  lng: number;
+}
+
+export interface MapProps {
+  center: Location;
+}
+
+const Map = (props: MapProps): JSX.Element => {
   const URL =
     "https://4.bp.blogspot.com/-sdhuHWjgfCo/UYOsrFBf5RI/AAAAAAAARKs/THaabR1hDq4/s400/umi_kani.png";
   dotenv.config();
@@ -12,11 +21,6 @@ const Map = (): JSX.Element => {
     height: "90vh",
     marginTop: "20px",
     marginBottom: "20px",
-  };
-
-  const center = {
-    lng: 127.76666539719781,
-    lat: 26.25334632814227,
   };
   const markerJsx: JSX.Element[] = [];
   const [myPositionMarkerJsx, setMyPositionMarkerJsx] = useState<JSX.Element>();
@@ -64,8 +68,11 @@ const Map = (): JSX.Element => {
   const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
   return (
     <LoadScript googleMapsApiKey={api}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
-        <Marker position={center} />
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={props.center}
+        zoom={17}
+      >
         {markerJsx}
         {myPositionMarkerJsx}
       </GoogleMap>
