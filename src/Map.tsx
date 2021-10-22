@@ -7,7 +7,6 @@ import {
 } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
 import React, { useEffect, useState } from "react";
-import { Building } from "./CheckBox";
 
 export interface Location {
   lat: number;
