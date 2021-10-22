@@ -57,17 +57,17 @@ const Map = (): JSX.Element => {
     // [] つけないとレンダリングされる度に実行されるらしい
   }, []);
 
-  for (const machine of data.machines) {
+  for (let i = 0; i < data.machines.length; i++) {
     const location = {
-      lng: machine.location[0],
-      lat: machine.location[1],
+      lng: data.machines[i].location[0],
+      lat: data.machines[i].location[1],
     };
     const element = (
       <Marker
         key={location.lat + location.lng}
         position={location}
         onClick={() => {
-          setIspopup(popupJsx[0])
+          setIspopup(popupJsx[i]);
         }}
       ></Marker>
     );
@@ -75,8 +75,13 @@ const Map = (): JSX.Element => {
     markerJsx.push(element);
 
     const element_popup = (
-      <InfoWindow key={location.lat + location.lng} position={location} 
-      onCloseClick={() => {setIspopup(<div></div>)}}>
+      <InfoWindow
+        key={location.lat + location.lng}
+        position={location}
+        onCloseClick={() => {
+          setIspopup(<div></div>);
+        }}
+      >
         <div>aa</div>
       </InfoWindow>
     );
@@ -90,6 +95,7 @@ const Map = (): JSX.Element => {
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
         <Marker position={center} />
         {markerJsx}
+        {myPositionMarkerJsx}
         {ispopup}
       </GoogleMap>
     </LoadScript>
