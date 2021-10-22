@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import Map, { MapProps, Location } from "./Map";
-import CheckBox, { CheckBoxProps, Building } from "./CheckBox";
+import Map, { Location } from "./Map";
+import CheckBox, { Building, CheckBoxProps } from "./CheckBox";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row } from "react-bootstrap";
+import { Marker } from "@react-google-maps/api";
+import * as data from "./drinking_machine.json";
 
 const App = (): JSX.Element => {
   const checkBoxChanged = (isChecked: boolean, type: Building) => {
@@ -25,16 +27,49 @@ const App = (): JSX.Element => {
       };
     }
     setCenterState(center);
+
+    const markersJsx: JSX.Element[] = [];
+    for (const machine of data.machines) {
+      const location = {
+        lng: machine.location[0],
+        lat: machine.location[1],
+      };
+      if (type == Building.FACTORY_OF_ENGINEERING && machine.area == "工学部") {
+        markersJsx.push(
+          <Marker key={location.lat + location.lng} position={location} />
+        );
+      } else if (
+        type == Building.COMMON_EDUCATIONAL &&
+        machine.area == "共通教育棟"
+      ) {
+        markersJsx.push(
+          <Marker key={location.lat + location.lng} position={location} />
+        );
+      }
+    }
+    setMarkersJsxState(markersJsx);
   };
 
-  const MapCenter: MapProps = {
-    center: {
-      lat: 26.25334632814227,
-      lng: 127.76666539719781,
-    },
+  const markersJsx: JSX.Element[] = [];
+  for (const machine of data.machines) {
+    const location = {
+      lng: machine.location[0],
+      lat: machine.location[1],
+    };
+    /*keyの中身は要相談*/
+    markersJsx.push(
+      <Marker key={location.lat + location.lng} position={location} />
+    );
+  }
+
+  const center = {
+    lat: 26.25334632814227,
+    lng: 127.76666539719781,
   };
 
-  const [centerState, setCenterState] = useState<Location>(MapCenter.center);
+  const [centerState, setCenterState] = useState<Location>(center);
+  const [markersJsxState, setMarkersJsxState] =
+    useState<JSX.Element[]>(markersJsx);
 
   const checkBoxProps: CheckBoxProps[] = [
     {
@@ -70,7 +105,7 @@ const App = (): JSX.Element => {
       <Container>
         <Row>
           <Col md={12}>
-            <Map center={centerState} />
+            <Map center={centerState} markers={markersJsxState} />
             {checkBoxJsx}
           </Col>
         </Row>

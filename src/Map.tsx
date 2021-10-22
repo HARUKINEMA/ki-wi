@@ -2,6 +2,7 @@ import * as dotenv from "dotenv";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
 import React, { useEffect, useState } from "react";
+import { Building } from "./CheckBox";
 
 export interface Location {
   lat: number;
@@ -10,6 +11,7 @@ export interface Location {
 
 export interface MapProps {
   center: Location;
+  markers: JSX.Element[];
 }
 
 const Map = (props: MapProps): JSX.Element => {
@@ -22,7 +24,6 @@ const Map = (props: MapProps): JSX.Element => {
     marginTop: "20px",
     marginBottom: "20px",
   };
-  const markerJsx: JSX.Element[] = [];
   const [myPositionMarkerJsx, setMyPositionMarkerJsx] = useState<JSX.Element>();
 
   useEffect(() => {
@@ -54,17 +55,6 @@ const Map = (props: MapProps): JSX.Element => {
     // [] つけないとレンダリングされる度に実行されるらしい
   }, []);
 
-  for (const machine of data.machines) {
-    const location = {
-      lng: machine.location[0],
-      lat: machine.location[1],
-    };
-    const element = (
-      <Marker key={location.lat + location.lng} position={location} />
-    );
-    /*keyの中身は要相談*/
-    markerJsx.push(element);
-  }
   const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
   return (
     <LoadScript googleMapsApiKey={api}>
@@ -73,7 +63,7 @@ const Map = (props: MapProps): JSX.Element => {
         center={props.center}
         zoom={17}
       >
-        {markerJsx}
+        {props.markers}
         {myPositionMarkerJsx}
       </GoogleMap>
     </LoadScript>
