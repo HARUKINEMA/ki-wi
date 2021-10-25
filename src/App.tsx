@@ -1,43 +1,82 @@
-import * as dotenv from "dotenv";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import React from "react";
-import * as data from "./drinking_machine.json";
+import React, { useState } from "react";
+import Map, { MapProps, Location } from "./Map";
+import CheckBox, { CheckBoxProps, Building } from "./CheckBox";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Col, Container, Row } from "react-bootstrap";
 
-const Map = (): JSX.Element => {
-  dotenv.config();
-  const containerStyle = {
-    width: "400px",
-    height: "400px",
-  };
-
-  const center = {
-    lng: 127.76666539719781,
-    lat: 26.25334632814227,
-  };
-
-  const markerJsx: JSX.Element[] = [];
-
-  for (const machine of data.machines) {
-    const location = {
-      lng: machine.location[0],
-      lat: machine.location[1],
+const App = (): JSX.Element => {
+  const checkBoxChanged = (isChecked: boolean, type: Building) => {
+    if (!isChecked) {
+      return;
+    }
+    let center: Location = {
+      lat: 0,
+      lng: 0,
     };
-    const element = (
-      <Marker key={location.lat + location.lng} position={location} />
-    );
-    /*keyの中身は要相談*/
-    markerJsx.push(element);
-  }
+    if (type == Building.COMMON_EDUCATIONAL) {
+      center = {
+        lat: 26.247959375749655,
+        lng: 127.76733423620408,
+      };
+    } else if (type == Building.FACTORY_OF_ENGINEERING) {
+      center = {
+        lat: 26.25334632814227,
+        lng: 127.76666539719781,
+      };
+    }
+    setCenterState(center);
+  };
 
-  const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
+  const MapCenter: MapProps = {
+    center: {
+      lat: 26.25334632814227,
+      lng: 127.76666539719781,
+    },
+  };
+
+  const [centerState, setCenterState] = useState<Location>(MapCenter.center);
+
+  const checkBoxProps: CheckBoxProps[] = [
+    {
+      label: "工学部",
+      building: Building.FACTORY_OF_ENGINEERING,
+      isChecked: false,
+      toggleCheckBox: checkBoxChanged,
+    },
+    {
+      label: "共通教育",
+      building: Building.COMMON_EDUCATIONAL,
+      isChecked: false,
+      toggleCheckBox: checkBoxChanged,
+    },
+  ];
+
+  const checkBoxJsx: JSX.Element[] = checkBoxProps.map(
+    (checkBox: CheckBoxProps, idx: number) => {
+      return (
+        <CheckBox
+          label={checkBox.label}
+          building={checkBox.building}
+          isChecked={checkBox.isChecked}
+          toggleCheckBox={checkBox.toggleCheckBox}
+          key={idx}
+        />
+      );
+    }
+  );
+
   return (
-    <LoadScript googleMapsApiKey={api}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={17}>
-        <Marker position={center} />
-        {markerJsx}
-      </GoogleMap>
-    </LoadScript>
+    <div>
+      <Container>
+        <Row>
+          <Col md={12}>
+            <Map center={centerState} />
+            {checkBoxJsx}
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 
-export default Map;
+export default App;
