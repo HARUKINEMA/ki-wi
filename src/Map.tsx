@@ -30,7 +30,7 @@ const Map = (props: MapProps): JSX.Element => {
   const markerJsx: JSX.Element[] = [];
   const popupJsx: JSX.Element[] = [];
   const [myPositionMarkerJsx, setMyPositionMarkerJsx] = useState<JSX.Element>();
-  const [popup, setpopup] = useState<JSX.Element>();
+  const [popup, setPopup] = useState<JSX.Element>();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -75,9 +75,9 @@ const Map = (props: MapProps): JSX.Element => {
         key={location.lat + location.lng}
         position={location}
         onClick={() => {
-          setpopup(popupJsx[i]);
+          setPopup(popupJsx[i]);
         }}
-      ></Marker>
+      />
     );
     /*keyの中身は要相談*/
     markerJsx.push(element);
@@ -87,7 +87,7 @@ const Map = (props: MapProps): JSX.Element => {
         key={location.lat + location.lng}
         position={locationPopup}
         onCloseClick={() => {
-          setpopup(<div></div>);
+          setPopup(<div></div>);
         }}
       >
         <div>
