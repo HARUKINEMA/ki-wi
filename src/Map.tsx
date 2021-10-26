@@ -68,7 +68,7 @@ const Map = (props: MapProps): JSX.Element => {
     };
     const locationPopup = {
       lng: data.machines[i].location[0],
-      lat: data.machines[i].location[1] + 0.00003,
+      lat: data.machines[i].location[1] + 0.0003,
     };
     const element = (
       <Marker
