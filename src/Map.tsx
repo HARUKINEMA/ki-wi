@@ -30,7 +30,7 @@ const Map = (props: MapProps): JSX.Element => {
   const markerJsx: JSX.Element[] = [];
   const popupJsx: JSX.Element[] = [];
   const [myPositionMarkerJsx, setMyPositionMarkerJsx] = useState<JSX.Element>();
-  const [ispopup, setIspopup] = useState<JSX.Element>();
+  const [popup, setpopup] = useState<JSX.Element>();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -75,7 +75,7 @@ const Map = (props: MapProps): JSX.Element => {
         key={location.lat + location.lng}
         position={location}
         onClick={() => {
-          setIspopup(popupJsx[i]);
+          setpopup(popupJsx[i]);
         }}
       ></Marker>
     );
@@ -87,7 +87,7 @@ const Map = (props: MapProps): JSX.Element => {
         key={location.lat + location.lng}
         position={location_pop}
         onCloseClick={() => {
-          setIspopup(<div></div>);
+          setpopup(<div></div>);
         }}
       >
         <div>
@@ -110,7 +110,7 @@ const Map = (props: MapProps): JSX.Element => {
       >
         {markerJsx}
         {myPositionMarkerJsx}
-        {ispopup}
+        {popup}
       </GoogleMap>
     </LoadScript>
   );
