@@ -66,7 +66,7 @@ const Map = (props: MapProps): JSX.Element => {
       lng: data.machines[i].location[0],
       lat: data.machines[i].location[1],
     };
-    const location_pop = {
+    const locationPopup = {
       lng: data.machines[i].location[0],
       lat: data.machines[i].location[1] + 0.00003,
     };
@@ -82,10 +82,10 @@ const Map = (props: MapProps): JSX.Element => {
     /*keyの中身は要相談*/
     markerJsx.push(element);
 
-    const element_popup = (
+    const elementPopup = (
       <InfoWindow
         key={location.lat + location.lng}
-        position={location_pop}
+        position={locationPopup}
         onCloseClick={() => {
           setpopup(<div></div>);
         }}
@@ -98,7 +98,7 @@ const Map = (props: MapProps): JSX.Element => {
       </InfoWindow>
     );
 
-    popupJsx.push(element_popup);
+    popupJsx.push(elementPopup);
   }
   const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
   return (
