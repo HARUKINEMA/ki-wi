@@ -95,9 +95,9 @@ const Map = (props: MapProps): JSX.Element => {
         }}
       >
         <div>
-          {data.machines[i].type}
+          メーカー：{data.machines[i].type}
           <br />
-          {data.machines[i].place}
+          場所：{data.machines[i].place}
         </div>
       </InfoWindow>
     );
