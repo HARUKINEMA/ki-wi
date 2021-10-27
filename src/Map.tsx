@@ -31,6 +31,7 @@ const Map = (props: MapProps): JSX.Element => {
   const popupJsx: JSX.Element[] = [];
   const [myPositionMarkerJsx, setMyPositionMarkerJsx] = useState<JSX.Element>();
   const [popup, setPopup] = useState<JSX.Element>();
+  const [nSize, nSetSize] = useState<number>(17);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -68,7 +69,7 @@ const Map = (props: MapProps): JSX.Element => {
     };
     const locationPopup = {
       lng: data.machines[i].location[0],
-      lat: data.machines[i].location[1] + 0.0003,
+      lat: data.machines[i].location[1] + 0.00008,
     };
     const element = (
       <Marker
@@ -76,6 +77,7 @@ const Map = (props: MapProps): JSX.Element => {
         position={location}
         onClick={() => {
           setPopup(popupJsx[i]);
+          nSetSize(19);
         }}
       />
     );
@@ -88,6 +90,7 @@ const Map = (props: MapProps): JSX.Element => {
         position={locationPopup}
         onCloseClick={() => {
           setPopup(<div></div>);
+          nSetSize(17);
         }}
       >
         <div>
@@ -106,7 +109,7 @@ const Map = (props: MapProps): JSX.Element => {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={props.center}
-        zoom={17}
+        zoom={nSize}
       >
         {markerJsx}
         {myPositionMarkerJsx}
