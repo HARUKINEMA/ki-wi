@@ -12,7 +12,7 @@ export const RadioButton = (props: RadioButtonProps): JSX.Element => {
       <input
         type={"radio"}
         checked={props.isChecked}
-        onChange={props.onChanged}
+        onChange={() => props.onChanged()}
       />
       <label> {props.label} </label>
     </div>
