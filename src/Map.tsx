@@ -77,6 +77,7 @@ const Map = (props: MapProps): JSX.Element => {
         position={location}
         onClick={() => {
           setPopup(popupJsx[i]);
+          nSetSize(18);
           nSetSize(19);
         }}
       />
