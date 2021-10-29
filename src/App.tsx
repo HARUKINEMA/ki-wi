@@ -32,86 +32,96 @@ function SetCenter(type: Building): Location {
   return center;
 }
 
-function SelectMarkers(type: Building): JSX.Element[] {
-  const markersJsx: JSX.Element[] = [];
-  for (const machine of data.machines) {
-    const location = {
-      lng: machine.location[0],
-      lat: machine.location[1],
-    };
-    if (type == Building.FACTORY_OF_ENGINEERING && machine.area == "工学部") {
-      markersJsx.push(
-        <Marker key={location.lat + location.lng} position={location} />
-      );
-    } else if (
-      type == Building.COMMON_EDUCATIONAL &&
-      machine.area == "共通教育棟"
-    ) {
-      markersJsx.push(
-        <Marker key={location.lat + location.lng} position={location} />
-      );
-    } else if (type == Building.ALL) {
-      markersJsx.push(
-        <Marker key={location.lat + location.lng} position={location} />
-      );
-    }
-  }
-  return markersJsx;
-}
-
 const App = (): JSX.Element => {
+  function MakePopup(): JSX.Element[] {
+    return data.machines.map((machine, idx) => {
+      const locationPopup = {
+        lng: machine.location[0],
+        lat: machine.location[1] + 0.00008,
+      };
+
+      return (
+        <InfoWindow
+          key={idx}
+          position={locationPopup}
+          onCloseClick={() => {
+            setPopup(<div />);
+            nSetSize(17);
+          }}
+        >
+          <div>
+            メーカー：{machine.type}
+            <br />
+            場所：{machine.place}
+          </div>
+        </InfoWindow>
+      );
+    });
+  }
+
+  function SelectMarkers(
+    type: Building,
+    popupsJSX: JSX.Element[]
+  ): JSX.Element[] {
+    return data.machines.map((machine, idx) => {
+      const location = {
+        lng: machine.location[0],
+        lat: machine.location[1],
+      };
+
+      if (type == Building.FACTORY_OF_ENGINEERING && machine.area == "工学部") {
+        return (
+          <Marker
+            key={location.lat + location.lng}
+            position={location}
+            onClick={() => {
+              setPopup(popupsJSX[idx]);
+              nSetSize(18);
+              nSetSize(19);
+            }}
+          />
+        );
+      } else if (
+        type == Building.COMMON_EDUCATIONAL &&
+        machine.area == "共通教育棟"
+      ) {
+        return (
+          <Marker
+            key={idx}
+            position={location}
+            onClick={() => {
+              setPopup(popupsJSX[idx]);
+              nSetSize(18);
+              nSetSize(19);
+            }}
+          />
+        );
+      } else if (type == Building.ALL) {
+        return (
+          <Marker
+            key={idx}
+            position={location}
+            onClick={() => {
+              setPopup(popupsJSX[idx]);
+              nSetSize(18);
+              nSetSize(19);
+            }}
+          />
+        );
+      } else {
+        return <></>;
+      }
+    });
+  }
+
   const onChange = (area: Building) => {
     setCenterState(SetCenter(area));
-    setMarkersJsxState(SelectMarkers(area));
+    setMarkersJsxState(SelectMarkers(area, MakePopup()));
   };
 
   const [popup, setPopup] = useState<JSX.Element>();
   const [nSize, nSetSize] = useState<number>(17);
-  const markersJsx: JSX.Element[] = [];
-  const popupJsx: JSX.Element[] = [];
-
-  for (let i = 0; i < data.machines.length; i++) {
-    const location = {
-      lng: data.machines[i].location[0],
-      lat: data.machines[i].location[1],
-    };
-    const locationPopup = {
-      lng: data.machines[i].location[0],
-      lat: data.machines[i].location[1] + 0.00008,
-    };
-    const element = (
-      <Marker
-        key={location.lat + location.lng}
-        position={location}
-        onClick={() => {
-          setPopup(popupJsx[i]);
-          nSetSize(18);
-          nSetSize(19);
-        }}
-      />
-    );
-    /*keyの中身は要相談*/
-    markersJsx.push(element);
-
-    const elementPopup = (
-      <InfoWindow
-        key={location.lat + location.lng}
-        position={locationPopup}
-        onCloseClick={() => {
-          setPopup(<div />);
-          nSetSize(17);
-        }}
-      >
-        <div>
-          メーカー：{data.machines[i].type}
-          <br />
-          場所：{data.machines[i].place}
-        </div>
-      </InfoWindow>
-    );
-
-    popupJsx.push(elementPopup);
-  }
+  const markersJsx: JSX.Element[] = SelectMarkers(Building.ALL, MakePopup());
 
   const center = {
     lat: 26.25334632814227,
