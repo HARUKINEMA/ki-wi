@@ -58,7 +58,8 @@
       "type": "POKKA-SAPPORO",
       "place": "共通教育棟1号館1階",
       "location": [127.76742805419225, 26.24857666904668],
-      "contents": ["JAVA TEA", "さんぴん茶"]
+      "contents": ["JAVA TEA", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=1ZlOcKQl17l-ykiJvV2BK-E-6I3YRY01o"
     },
     {
       "type": "大塚ウエルネスベンディング",
