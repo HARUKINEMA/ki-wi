@@ -11,7 +11,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -26,5 +27,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "react-hooks/rules-of-hooks": "error", // Check rules of Hooks
+        "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
     }
 }

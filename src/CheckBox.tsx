@@ -3,6 +3,7 @@ import React, { useState } from "react";
 export enum Building {
   FACTORY_OF_ENGINEERING,
   COMMON_EDUCATIONAL,
+  ALL,
 }
 
 export interface CheckBoxProps {
