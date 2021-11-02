@@ -99,7 +99,9 @@ const Map = (props: MapProps): JSX.Element => {
           <br />
           場所：{data.machines[i].place}
           <br />
-          <img src={data.machines[i].image} width="200" height="500" />
+          <div >
+            <img src={data.machines[i].image} width="100%" height="100%" />
+          </div>
         </div>
       </InfoWindow>
     );
