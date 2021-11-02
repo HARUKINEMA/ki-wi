@@ -6,6 +6,12 @@ export enum Building {
   ALL,
 }
 
+export enum Card {
+  No,
+  Yes,
+  All,
+}
+
 export interface CheckBoxProps {
   label: string;
   building: Building;

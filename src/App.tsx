@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Map, { Location } from "./Map";
-import { Building } from "./CheckBox";
+import { Building, Card } from "./CheckBox";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
 import { AreaContainer, AreaContainerProps } from "./AreaContainer";
 import { Col, Container, Row } from "react-bootstrap";
+import { CardContainer, CardContainerProps } from "./CardContainer";
 
 function SetCenter(type: Building): Location {
   let center: Location = {
@@ -114,9 +115,68 @@ const App = (): JSX.Element => {
     });
   }
 
+  function CardSelectMarkers(
+    type: Card,
+    popupsJSX: JSX.Element[]
+  ): JSX.Element[] {
+    return data.machines.map((machine, idx) => {
+      const location = {
+        lng: machine.location[0],
+        lat: machine.location[1],
+      };
+
+      if (type == Card.No && machine.card == "No") {
+        return (
+          <Marker
+            key={location.lat + location.lng}
+            position={location}
+            onClick={() => {
+              setPopup(popupsJSX[idx]);
+              nSetSize(18);
+              nSetSize(19);
+            }}
+          />
+        );
+      } else if (
+        type == Card.Yes &&
+        machine.card == "Yes"
+      ) {
+        return (
+          <Marker
+            key={idx}
+            position={location}
+            onClick={() => {
+              setPopup(popupsJSX[idx]);
+              nSetSize(18);
+              nSetSize(19);
+            }}
+          />
+        );
+      } else if (type == Card.All) {
+        return (
+          <Marker
+            key={idx}
+            position={location}
+            onClick={() => {
+              setPopup(popupsJSX[idx]);
+              nSetSize(18);
+              nSetSize(19);
+            }}
+          />
+        );
+      } else {
+        return <></>;
+      }
+    });
+  }
+
   const onChange = (area: Building) => {
     setCenterState(SetCenter(area));
     setMarkersJsxState(SelectMarkers(area, MakePopup()));
+  };
+
+  const CardonChange = (card: Card) => {
+    setMarkersJsxState(CardSelectMarkers(card, MakePopup()));
   };
 
   const [popup, setPopup] = useState<JSX.Element>();
@@ -153,6 +213,27 @@ const App = (): JSX.Element => {
     onChangeRadioButton: onChange,
   };
 
+  const CardcheckBoxProps: CardContainerProps = {
+    cardRadioButtons: [
+      {
+        label: "全ての場所",
+        card: Card.All,
+        isChecked: true,
+      },
+      {
+        label: "使用可能",
+        card: Card.Yes,
+        isChecked: false,
+      },
+      {
+        label: "ダメ",
+        card: Card.No,
+        isChecked: false,
+      },
+    ],
+    CardonChangeRadioButton: CardonChange,
+  };
+
   return (
     <div>
       <Container>
@@ -172,6 +253,16 @@ const App = (): JSX.Element => {
               areaRadioButtons={checkBoxProps.areaRadioButtons}
               onChangeRadioButton={(area: Building) =>
                 checkBoxProps.onChangeRadioButton(area)
+              }
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={4}>
+            <CardContainer
+              cardRadioButtons={CardcheckBoxProps.cardRadioButtons}
+              CardonChangeRadioButton={(card: Card) =>
+                CardcheckBoxProps.CardonChangeRadioButton(card)
               }
             />
           </Col>
