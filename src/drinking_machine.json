@@ -58,37 +58,43 @@
       "type": "POKKA-SAPPORO",
       "place": "共通教育棟1号館1階",
       "location": [127.76742805419225, 26.24857666904668],
-      "contents": ["JAVA TEA", "さんぴん茶"]
+      "contents": ["JAVA TEA", "さんぴん茶"],
+      "image": " https://drive.google.com/uc?id=1ZlOcKQl17l-ykiJvV2BK-E-6I3YRY01o"
     },
     {
       "type": "大塚ウエルネスベンディング",
       "place": "共通教育棟2号館1階",
       "location": [127.76775878026744, 26.24828500046189],
-      "contents": ["カロリーメイト", "SOYJOY"]
+      "contents": ["カロリーメイト", "SOYJOY"],
+      "image": "https://drive.google.com/uc?id=1A-iJhi0N_CW9EAceJa_c7hXQ3gYiJ2hx"
     },
     {
       "type": "apex",
       "place": "共通教育棟3号館1階",
       "location": [127.76792517671551, 26.247741899766787],
-      "contents": ["紅茶花伝", "コカコーラ"]
+      "contents": ["紅茶花伝", "コカコーラ"],
+      "image": "https://drive.google.com/uc?id=13PvJWJPR2Cm0VvlVUYerA6qp2_PhP0ah"
     },
     {
       "type": "POKKA-SAPPORO",
       "place": "文系講義棟1階",
       "location": [127.7668672560648, 26.246704368848],
-      "contents": ["烏龍", "さんぴん茶"]
+      "contents": ["烏龍", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=13jZoSZwy4i84tHAlhzIFYdUfwc9tBaXp"
     },
     {
       "type": "大塚ウエルネスベンディング",
       "place": "文系総合研究棟1階",
       "location": [127.76632935144738, 26.24689193573707],
-      "contents": ["グァバ茶", "さんぴん茶"]
+      "contents": ["グァバ茶", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=1sB8lcB4oyvBP3qiP0Kc_hkXaM3TP_Xp6"
     },
     {
       "type": "大塚ウエルネスベンディング",
       "place": "教育学部本館棟1階",
       "location": [127.76552497068573, 26.246667405243148],
-      "contents": ["カロリーメイト", "さんぴん茶"]
+      "contents": ["カロリーメイト", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=1vWAruNydrmD9P8e0tRZOJkeJnnq7qkgi"
     }
   ]
 }
