@@ -16,37 +16,45 @@
       "type": "SUNTORY",
       "place": "中央食堂入口横",
       "location": [127.76626225758498, 26.24889921050119],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=157EP_69-1XonWmr-UEpU2aMmfvOqFOY5"
+
     },
     {
       "type": "POKKA-SAPPORO",
       "place": "中央食堂入口横",
       "location": [127.76625778218592, 26.24890322440282],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=14yA2DKwYb466h5zuIHSI2GKGzgVssi_4"
+
     },
     {
       "type": "コカ・コーラ",
       "place": "中央食堂入口横",
       "location": [127.76620586755682, 26.248873521527475],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=14ugguYKmjEU5DGoJAM5cw0P3IJuYUca4"
     },
     {
       "type": "コカ・コーラ",
       "place": "北口食堂入口横",
       "location": [127.76574746002802, 26.251824113353017],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=14bwFjvKVWBKwdkgP13dPVXGPgCZLPSox"
     },
     {
       "type": "SUNTORY",
       "place": "北口食堂入口横",
       "location": [127.765757518311, 26.25183794533564],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=14VcSTbyxEBb6L-13iW7W4NnIFURFWYCb"
     },
     {
       "type": "POKKA-SAPPORO",
       "place": "北口食堂入口横",
       "location": [127.7657648943852, 26.251851777316585],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "image": "https://drive.google.com/uc?id=14CFbFSRd3Opvm-9FybaQ3BVL1Ba90ITE"
     },
     {
       "type": "POKKA-SAPPORO",
