@@ -1,5 +1,17 @@
 import React from "react";
 
+export enum Building {
+  FACTORY_OF_ENGINEERING,
+  COMMON_EDUCATIONAL,
+  ALL,
+}
+
+export enum Card {
+  No,
+  Yes,
+  All,
+}
+
 export interface RadioButtonProps {
   isChecked: boolean;
   label: string;

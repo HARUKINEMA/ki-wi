@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "../CheckBox";
+import { Card } from "./RadioButton";
 import { RadioButton } from "./RadioButton";
 
 export interface CardRadioButton {

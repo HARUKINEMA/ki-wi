@@ -1,5 +1,5 @@
 import React from "react";
-import { Building } from "../CheckBox";
+import { Building } from "./RadioButton";
 import { RadioButton } from "./RadioButton";
 
 export interface AreaRadioButton {

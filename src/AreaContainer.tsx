@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Building } from "./CheckBox";
+import { Building } from "./component/RadioButton";
 import { AreaRadioButton } from "./component/AreaRadioButton";
 
 export interface AreaContainerProps {
@@ -24,12 +24,12 @@ function MakeAreaRadioButtonJSX(
 
 export const AreaContainer = (props: AreaContainerProps): JSX.Element => {
   const onChange = (area: Building): void => {
-    const aho = props.areaRadioButtons.map((areaRadioButton) => {
+    const selectAreabutton = props.areaRadioButtons.map((areaRadioButton) => {
       areaRadioButton.isChecked = area == areaRadioButton.area;
       return areaRadioButton;
     });
 
-    const areaRadioButtonJSX = MakeAreaRadioButtonJSX(aho, onChange);
+    const areaRadioButtonJSX = MakeAreaRadioButtonJSX(selectAreabutton, onChange);
     SetAreaRadioButtonJSXState(areaRadioButtonJSX);
     props.onChangeRadioButton(area);
   };

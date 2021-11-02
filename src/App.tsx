@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Map, { Location } from "./Map";
-import { Building, Card } from "./CheckBox";
+import { Building, Card } from "./component/RadioButton";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
@@ -189,8 +189,7 @@ const App = (): JSX.Element => {
   };
 
   const [centerState, setCenterState] = useState<Location>(center);
-  const [markersJsxState, setMarkersJsxState] =
-    useState<JSX.Element[]>(markersJsx);
+  const [markersJsxState, setMarkersJsxState] = useState<JSX.Element[]>(markersJsx);
 
   const checkBoxProps: AreaContainerProps = {
     areaRadioButtons: [
@@ -248,6 +247,7 @@ const App = (): JSX.Element => {
           </Col>
         </Row>
         <Row>
+        <p>エリア選択</p>
           <Col md={4}>
             <AreaContainer
               areaRadioButtons={checkBoxProps.areaRadioButtons}
@@ -258,6 +258,7 @@ const App = (): JSX.Element => {
           </Col>
         </Row>
         <Row>
+        <p>カード使用選択</p>
           <Col md={4}>
             <CardContainer
               cardRadioButtons={CardcheckBoxProps.cardRadioButtons}

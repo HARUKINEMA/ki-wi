@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card } from "./CheckBox";
+import { Card } from "./component/RadioButton";
 import { CardRadioButton } from "./component/CardRadioButton";
 
 export interface CardContainerProps {
