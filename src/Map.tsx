@@ -20,7 +20,7 @@ const Map = (props: MapProps): JSX.Element => {
   dotenv.config();
   const containerStyle = {
     width: "100%",
-    height: "90vh",
+    height: "80vh",
     marginTop: "20px",
     marginBottom: "20px",
   };
