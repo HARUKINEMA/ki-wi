@@ -157,22 +157,22 @@ const App = (): JSX.Element => {
     <div>
       <Container>
         <Row>
-          <Col md={12}>
-            <Map
-              center={centerState}
-              markers={markersJsxState}
-              popup={popup}
-              nSize={nSize}
-            />
-          </Col>
-        </Row>
-        <Row>
           <Col md={4}>
             <AreaContainer
               areaRadioButtons={checkBoxProps.areaRadioButtons}
               onChangeRadioButton={(area: Building) =>
                 checkBoxProps.onChangeRadioButton(area)
               }
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <Map
+              center={centerState}
+              markers={markersJsxState}
+              popup={popup}
+              nSize={nSize}
             />
           </Col>
         </Row>
