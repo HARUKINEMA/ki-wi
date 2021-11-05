@@ -4,61 +4,71 @@
       "type": "ミリオン",
       "place": "工学棟1号館1階",
       "location": [127.76666539719781, 26.25334632814227],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "area": "工学部"
     },
     {
       "type": "コカ・コーラ",
       "place": "工学棟3号館裏側",
       "location": [127.76635827657901, 26.253525552761033],
-      "contents": ["アクエリアス", "綾鷹"]
+      "contents": ["アクエリアス", "綾鷹"],
+      "area": "工学部"
     },
     {
       "type": "SUNTORY",
       "place": "中央食堂入口横",
       "location": [127.76626225758498, 26.24889921050119],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "area": "共通教育棟"
     },
     {
       "type": "POKKA-SAPPORO",
       "place": "中央食堂入口横",
       "location": [127.76625778218592, 26.24890322440282],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "area": "共通教育棟"
     },
     {
       "type": "コカ・コーラ",
       "place": "中央食堂入口横",
       "location": [127.76620586755682, 26.248873521527475],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "area": "共通教育棟"
     },
     {
       "type": "コカ・コーラ",
       "place": "北口食堂入口横",
       "location": [127.76574746002802, 26.251824113353017],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "area": "工学部"
     },
     {
       "type": "SUNTORY",
       "place": "北口食堂入口横",
       "location": [127.765757518311, 26.25183794533564],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "area": "工学部"
     },
     {
       "type": "POKKA-SAPPORO",
       "place": "北口食堂入口横",
       "location": [127.7657648943852, 26.251851777316585],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "area": "工学部"
     },
     {
       "type": "POKKA-SAPPORO",
       "place": "サークル棟入口",
       "location": [127.76715446615279, 26.254024982739676],
-      "contents": ["琉球コーラ", "さんぴん茶"]
+      "contents": ["琉球コーラ", "さんぴん茶"],
+      "area": "工学部"
     },
     {
       "type": "POKKA-SAPPORO",
       "place": "共通教育棟1号館1階",
       "location": [127.76742805419225, 26.24857666904668],
       "contents": ["JAVA TEA", "さんぴん茶"],
+      "area": "共通教育棟",
       "image": " https://drive.google.com/uc?id=1ZlOcKQl17l-ykiJvV2BK-E-6I3YRY01o"
     },
     {
@@ -66,6 +76,7 @@
       "place": "共通教育棟2号館1階",
       "location": [127.76775878026744, 26.24828500046189],
       "contents": ["カロリーメイト", "SOYJOY"],
+      "area": "共通教育棟",
       "image": "https://drive.google.com/uc?id=1A-iJhi0N_CW9EAceJa_c7hXQ3gYiJ2hx"
     },
     {
@@ -73,6 +84,7 @@
       "place": "共通教育棟3号館1階",
       "location": [127.76792517671551, 26.247741899766787],
       "contents": ["紅茶花伝", "コカコーラ"],
+      "area": "共通教育棟",
       "image": "https://drive.google.com/uc?id=13PvJWJPR2Cm0VvlVUYerA6qp2_PhP0ah"
     },
     {
@@ -80,6 +92,7 @@
       "place": "文系講義棟1階",
       "location": [127.7668672560648, 26.246704368848],
       "contents": ["烏龍", "さんぴん茶"],
+      "area": "共通教育棟",
       "image": "https://drive.google.com/uc?id=13jZoSZwy4i84tHAlhzIFYdUfwc9tBaXp"
     },
     {
@@ -87,6 +100,7 @@
       "place": "文系総合研究棟1階",
       "location": [127.76632935144738, 26.24689193573707],
       "contents": ["グァバ茶", "さんぴん茶"],
+      "area": "共通教育棟",
       "image": "https://drive.google.com/uc?id=1sB8lcB4oyvBP3qiP0Kc_hkXaM3TP_Xp6"
     },
     {
@@ -94,6 +108,7 @@
       "place": "教育学部本館棟1階",
       "location": [127.76552497068573, 26.246667405243148],
       "contents": ["カロリーメイト", "さんぴん茶"],
+      "area": "共通教育棟",
       "image": "https://drive.google.com/uc?id=1vWAruNydrmD9P8e0tRZOJkeJnnq7qkgi"
     }
   ]
