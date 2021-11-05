@@ -7,7 +7,6 @@ import * as data from "./drinking_machine.json";
 import { AreaContainer, AreaContainerProps } from "./AreaContainer";
 import { Col, Container, Row } from "react-bootstrap";
 import { CardContainer, CardContainerProps } from "./CardContainer";
-import { JsxElement } from "typescript";
 function SetCenter(type: Building): Location {
   let center: Location = { lat: 0, lng: 0 };
   if (type == Building.COMMON_EDUCATIONAL) {
@@ -37,6 +36,11 @@ const App = (): JSX.Element => {
   const [centerState, setCenterState] = useState<Location>(center);
   const [markersJsxState, setMarkersJsxState] =
     useState<JSX.Element[]>(markersJsx);
+  let area: Building | Card;
+  area = Building.ALL;
+  let card: Building | Card;
+  card = Card.All;
+
   function MakeMarker(idx: number, popupsJSX: JSX.Element[]) {
     const locationMarker = {
       lng: data.machines[idx].location[0],
@@ -102,26 +106,108 @@ const App = (): JSX.Element => {
     type: Building | Card,
     popupsJSX: JSX.Element[]
   ): JSX.Element[] {
-    return data.machines.map((machine, idx) => {
-      if (type == Building.FACTORY_OF_ENGINEERING && machine.area == "工学部") {
-        return MakeMarker(idx, popupsJSX);
-      } else if (
-        type == Building.COMMON_EDUCATIONAL &&
-        machine.area == "共通教育棟"
-      ) {
-        return MakeMarker(idx, popupsJSX);
-      } else if (type == Building.ALL) {
-        return MakeMarker(idx, popupsJSX);
-      } else if (type == Card.Yes && machine.card == "Yes") {
-        return MakeMarker(idx, popupsJSX);
-      } else if (type == Card.No && machine.card == "No") {
-        return MakeMarker(idx, popupsJSX);
-      } else if (type == Card.All) {
-        return MakeMarker(idx, popupsJSX);
-      } else {
-        return <></>;
-      }
-    });
+    let markers: JSX.Element[] = [];
+
+    if (type <= 2) {
+      area = type;
+      markers = data.machines.map((machine, idx) => {
+        if (area == Building.ALL) {
+          if (card == Card.All) {
+            return MakeMarker(idx, popupsJSX);
+          } else if (card == Card.No && machine.card == "No") {
+            return MakeMarker(idx, popupsJSX);
+          } else if (card == Card.Yes && machine.card == "Yes") {
+            return MakeMarker(idx, popupsJSX);
+          } else {
+            return <></>;
+          }
+        } else if (
+          area == Building.FACTORY_OF_ENGINEERING &&
+          machine.area == "工学部"
+        ) {
+          if (card == Card.All) {
+            return MakeMarker(idx, popupsJSX);
+          } else if (card == Card.No && machine.card == "No") {
+            return MakeMarker(idx, popupsJSX);
+          } else if (card == Card.Yes && machine.card == "Yes") {
+            return MakeMarker(idx, popupsJSX);
+          } else {
+            return <></>;
+          }
+        } else if (
+          area == Building.COMMON_EDUCATIONAL &&
+          machine.area == "共通教育棟"
+        ) {
+          if (card == Card.All) {
+            return MakeMarker(idx, popupsJSX);
+          } else if (card == Card.No && machine.card == "No") {
+            return MakeMarker(idx, popupsJSX);
+          } else if (card == Card.Yes && machine.card == "Yes") {
+            return MakeMarker(idx, popupsJSX);
+          } else {
+            return <></>;
+          }
+        } else {
+          return <></>;
+        }
+      });
+    } else if (type >= 3) {
+      card = type;
+      markers = data.machines.map((machine, idx) => {
+        if (card == Card.All) {
+          if (area == Building.ALL) {
+            return MakeMarker(idx, popupsJSX);
+          } else if (
+            area == Building.COMMON_EDUCATIONAL &&
+            machine.area == "共通教育棟"
+          ) {
+            return MakeMarker(idx, popupsJSX);
+          } else if (
+            area == Building.FACTORY_OF_ENGINEERING &&
+            machine.area == "工学部"
+          ) {
+            return MakeMarker(idx, popupsJSX);
+          } else {
+            return <></>;
+          }
+        } else if (card == Card.No && machine.card == "No") {
+          if (area == Building.ALL) {
+            return MakeMarker(idx, popupsJSX);
+          } else if (
+            area == Building.COMMON_EDUCATIONAL &&
+            machine.area == "共通教育棟"
+          ) {
+            return MakeMarker(idx, popupsJSX);
+          } else if (
+            area == Building.FACTORY_OF_ENGINEERING &&
+            machine.area == "工学部"
+          ) {
+            return MakeMarker(idx, popupsJSX);
+          } else {
+            return <></>;
+          }
+        } else if (card == Card.Yes && machine.card == "Yes") {
+          if (area == Building.ALL) {
+            return MakeMarker(idx, popupsJSX);
+          } else if (
+            area == Building.COMMON_EDUCATIONAL &&
+            machine.area == "共通教育棟"
+          ) {
+            return MakeMarker(idx, popupsJSX);
+          } else if (
+            area == Building.FACTORY_OF_ENGINEERING &&
+            machine.area == "工学部"
+          ) {
+            return MakeMarker(idx, popupsJSX);
+          } else {
+            return <></>;
+          }
+        } else {
+          return <></>;
+        }
+      });
+    }
+    return markers;
   }
 
   const onChange = (area: Building) => {
