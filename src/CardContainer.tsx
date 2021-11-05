@@ -29,7 +29,10 @@ export const CardContainer = (props: CardContainerProps): JSX.Element => {
       return cardRadioButton;
     });
 
-    const cardRadioButtonJSX = MakeCardRadioButtonJSX(selectCardbutton, onChange);
+    const cardRadioButtonJSX = MakeCardRadioButtonJSX(
+      selectCardbutton,
+      onChange
+    );
     SetCardRadioButtonJSXState(cardRadioButtonJSX);
     props.CardonChangeRadioButton(card);
   };
