@@ -6,6 +6,7 @@ import { InfoWindow, Marker } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
 import { AreaContainer, AreaContainerProps } from "./AreaContainer";
 import { Col, Container, Row } from "react-bootstrap";
+import { Usage } from "./Usage";
 
 function SetCenter(type: Building): Location {
   let center: Location = {
@@ -158,6 +159,11 @@ const App = (): JSX.Element => {
   return (
     <div>
       <Container>
+        <Row>
+          <Col md={12}>
+            <Usage />
+          </Col>
+        </Row>
         <Row>
           <Col md={4}>
             <AreaContainer
