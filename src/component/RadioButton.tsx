@@ -1,15 +1,15 @@
 import React from "react";
 
 export enum Building {
-  FACTORY_OF_ENGINEERING,
-  COMMON_EDUCATIONAL,
-  ALL,
+  FACTORY_OF_ENGINEERING = 0,
+  COMMON_EDUCATIONAL = 1,
+  ALL = 2,
 }
 
 export enum Card {
-  No,
-  Yes,
-  All,
+  Yes = 3,
+  No = 4,
+  All = 5,
 }
 
 export interface RadioButtonProps {

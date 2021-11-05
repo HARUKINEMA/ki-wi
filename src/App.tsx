@@ -29,19 +29,49 @@ function SetCenter(type: Building): Location {
   return center;
 }
 
-
-
 const App = (): JSX.Element => {
   const [popup, setPopup] = useState<JSX.Element>();
   const [nSize, nSetSize] = useState<number>(17);
   const markersJsx: JSX.Element[] = InitMarkers(MakePopup());
-  const center = {lat: 26.25334632814227, lng: 127.76666539719781,};
+  const center = { lat: 26.25334632814227, lng: 127.76666539719781 };
   const [centerState, setCenterState] = useState<Location>(center);
-  const [markersJsxState, setMarkersJsxState] = useState<JSX.Element[]>(markersJsx);
-
-  function MakeMarker(idx:number,popupsJSX: JSX.Element[]){
-    const locationMarker = {lng: data.machines[idx].location[0],lat: data.machines[idx].location[1],};
-    return (<Marker key={idx} position={locationMarker} onClick={() => {setPopup(popupsJSX[idx]);nSetSize(18);nSetSize(19);}}/>);
+  const [markersJsxState, setMarkersJsxState] =
+    useState<JSX.Element[]>(markersJsx);
+  function MakeMarker(idx: number, popupsJSX: JSX.Element[]) {
+    const locationMarker = {
+      lng: data.machines[idx].location[0],
+      lat: data.machines[idx].location[1],
+    };
+    return (
+      <Marker
+        key={idx}
+        position={locationMarker}
+        onClick={() => {
+          setPopup(popupsJSX[idx]);
+          nSetSize(18);
+          nSetSize(19);
+        }}
+      />
+    );
+  }
+  function InitMarkers(popupsJSX: JSX.Element[]) {
+    return data.machines.map((machine, idx) => {
+      const location = {
+        lng: machine.location[0],
+        lat: machine.location[1],
+      };
+      return (
+        <Marker
+          key={idx}
+          position={location}
+          onClick={() => {
+            setPopup(popupsJSX[idx]);
+            nSetSize(18);
+            nSetSize(19);
+          }}
+        />
+      );
+    });
   }
   function MakePopup(): JSX.Element[] {
     return data.machines.map((machine, idx) => {
@@ -67,47 +97,27 @@ const App = (): JSX.Element => {
       );
     });
   }
-  function InitMarkers(popupsJSX: JSX.Element[]) {
-    return data.machines.map((machine, idx) => {
-      const location = {
-        lng: machine.location[0],
-        lat: machine.location[1],
-      };
-      return (
-        <Marker
-          key={idx}
-          position={location}
-          onClick={() => {
-            setPopup(popupsJSX[idx]);
-            nSetSize(18);
-            nSetSize(19);
-          }}
-        />
-      );
-    });
-  }
 
-  function SelectMarkers(type: Building, popupsJSX: JSX.Element[]): JSX.Element[] {
+  function SelectMarkers(
+    type: Building | Card,
+    popupsJSX: JSX.Element[]
+  ): JSX.Element[] {
     return data.machines.map((machine, idx) => {
       if (type == Building.FACTORY_OF_ENGINEERING && machine.area == "工学部") {
-        return (MakeMarker(idx,popupsJSX));
-      } else if (type == Building.COMMON_EDUCATIONAL && machine.area == "共通教育棟") {
-        return (MakeMarker(idx,popupsJSX));
+        return MakeMarker(idx, popupsJSX);
+      } else if (
+        type == Building.COMMON_EDUCATIONAL &&
+        machine.area == "共通教育棟"
+      ) {
+        return MakeMarker(idx, popupsJSX);
       } else if (type == Building.ALL) {
-        return (MakeMarker(idx,popupsJSX));
-      } else {
-        return <></>;
-      }
-    });
-  }
-  function CardSelectMarkers(type: Card,popupsJSX: JSX.Element[]): JSX.Element[] {
-    return data.machines.map((machine, idx) => {
-      if (type == Card.No && machine.card == "No") {
-        return (MakeMarker(idx,popupsJSX));
+        return MakeMarker(idx, popupsJSX);
       } else if (type == Card.Yes && machine.card == "Yes") {
-        return (MakeMarker(idx,popupsJSX));
+        return MakeMarker(idx, popupsJSX);
+      } else if (type == Card.No && machine.card == "No") {
+        return MakeMarker(idx, popupsJSX);
       } else if (type == Card.All) {
-        return (MakeMarker(idx,popupsJSX));
+        return MakeMarker(idx, popupsJSX);
       } else {
         return <></>;
       }
@@ -119,7 +129,7 @@ const App = (): JSX.Element => {
     setMarkersJsxState(SelectMarkers(area, MakePopup()));
   };
   const CardonChange = (card: Card) => {
-    setMarkersJsxState(CardSelectMarkers(card, MakePopup()));
+    setMarkersJsxState(SelectMarkers(card, MakePopup()));
   };
   const checkBoxProps: AreaContainerProps = {
     areaRadioButtons: [
@@ -141,7 +151,7 @@ const App = (): JSX.Element => {
     ],
     onChangeRadioButton: onChange,
   };
-  
+
   const CardcheckBoxProps: CardContainerProps = {
     cardRadioButtons: [
       {
@@ -162,7 +172,7 @@ const App = (): JSX.Element => {
     ],
     CardonChangeRadioButton: CardonChange,
   };
-  
+
   return (
     <div>
       <Container>
