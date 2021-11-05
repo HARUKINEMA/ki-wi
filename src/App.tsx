@@ -7,6 +7,7 @@ import * as data from "./drinking_machine.json";
 import { AreaContainer, AreaContainerProps } from "./AreaContainer";
 import { Col, Container, Row } from "react-bootstrap";
 import { Usage } from "./Usage";
+import { Footer } from "./Fotter";
 
 function SetCenter(type: Building): Location {
   let center: Location = {
@@ -180,6 +181,11 @@ const App = (): JSX.Element => {
               popup={popup}
               nSize={nSize}
             />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <Footer />
           </Col>
         </Row>
       </Container>
