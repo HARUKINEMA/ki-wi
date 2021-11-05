@@ -8,7 +8,7 @@ import { AreaContainer, AreaContainerProps } from "./AreaContainer";
 import { Col, Container, Row } from "react-bootstrap";
 import { Usage } from "./Usage";
 import { Footer } from "./Fotter";
-
+import logo from "./logo.png";
 function SetCenter(type: Building): Location {
   let center: Location = {
     lat: 0,
@@ -158,6 +158,12 @@ const App = (): JSX.Element => {
   return (
     <div>
       <Container>
+        <Row>
+          <Col md={5} />
+          <Col md={4}>
+            <img src={logo} alt={"non"} />
+          </Col>
+        </Row>
         <Row>
           <Col md={12}>
             <Usage />
