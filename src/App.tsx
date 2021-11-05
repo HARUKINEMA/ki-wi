@@ -7,13 +7,8 @@ import * as data from "./drinking_machine.json";
 import { AreaContainer, AreaContainerProps } from "./AreaContainer";
 import { Col, Container, Row } from "react-bootstrap";
 import { CardContainer, CardContainerProps } from "./CardContainer";
-
 function SetCenter(type: Building): Location {
-  let center: Location = {
-    lat: 0,
-    lng: 0,
-  };
-
+  let center: Location = {lat: 0,lng: 0,};
   if (type == Building.COMMON_EDUCATIONAL) {
     center = {
       lat: 26.247959375749655,
@@ -32,15 +27,17 @@ function SetCenter(type: Building): Location {
   }
   return center;
 }
-
 const App = (): JSX.Element => {
+
+
+
+
   function MakePopup(): JSX.Element[] {
     return data.machines.map((machine, idx) => {
       const locationPopup = {
         lng: machine.location[0],
         lat: machine.location[1] + 0.00008,
       };
-
       return (
         <InfoWindow
           key={idx}
@@ -59,11 +56,46 @@ const App = (): JSX.Element => {
       );
     });
   }
+  function InitMarkers(popupsJSX: JSX.Element[]){
+    return data.machines.map((machine, idx) => {
+      const location = {
+        lng: machine.location[0],
+        lat: machine.location[1],
+      };
+      return (
+        <Marker
+          key={idx}
+          position={location}
+          onClick={() => {
+          setPopup(popupsJSX[idx]);
+          nSetSize(18);
+          nSetSize(19);
+          }}
+        />
+      );
+    });
+  }
 
-  function SelectMarkers(
-    type: Building,
-    popupsJSX: JSX.Element[]
-  ): JSX.Element[] {
+/* 表示されるマーカー(markerjsxstate)と実際に存在するマーカー別の配列にしてinitで表示されるマーカー=実際に存在するマーカーに,selectで都合よく改竄する*/
+
+  function Select(type: string, markersJsxState: JSX.Element[]): JSX.Element[] {
+    return markersJsx.map(
+      (idx) => {
+        return(
+          <></>
+        );
+      }
+    );
+  }
+
+
+
+
+
+
+
+
+  function SelectMarkers(type: Building, popupsJSX: JSX.Element[]): JSX.Element[] {
     return data.machines.map((machine, idx) => {
       const location = {
         lng: machine.location[0],
@@ -181,7 +213,28 @@ const App = (): JSX.Element => {
 
   const [popup, setPopup] = useState<JSX.Element>();
   const [nSize, nSetSize] = useState<number>(17);
-  const markersJsx: JSX.Element[] = SelectMarkers(Building.ALL, MakePopup());
+
+
+
+
+
+
+
+
+
+
+
+  const markersJsx: JSX.Element[] = InitMarkers(MakePopup());
+
+
+
+
+
+
+
+
+
+
 
   const center = {
     lat: 26.25334632814227,
@@ -233,6 +286,17 @@ const App = (): JSX.Element => {
     CardonChangeRadioButton: CardonChange,
   };
 
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div>
       <Container>
@@ -271,6 +335,15 @@ const App = (): JSX.Element => {
       </Container>
     </div>
   );
-};
 
+
+
+
+
+
+
+
+
+
+};
 export default App;
