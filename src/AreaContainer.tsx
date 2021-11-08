@@ -28,7 +28,6 @@ export const AreaContainer = (props: AreaContainerProps): JSX.Element => {
       areaRadioButton.isChecked = area == areaRadioButton.area;
       return areaRadioButton;
     });
-
     const areaRadioButtonJSX = MakeAreaRadioButtonJSX(
       selectAreabutton,
       onChange
