@@ -24,12 +24,15 @@ function MakeAreaRadioButtonJSX(
 
 export const AreaContainer = (props: AreaContainerProps): JSX.Element => {
   const onChange = (area: Building): void => {
-    const selectAreabutton = props.areaRadioButtons.map((areaRadioButton) => {
+    const selectAreaButton = props.areaRadioButtons.map((areaRadioButton) => {
       areaRadioButton.isChecked = area == areaRadioButton.area;
       return areaRadioButton;
     });
 
-    const areaRadioButtonJSX = MakeAreaRadioButtonJSX(selectAreabutton, onChange);
+    const areaRadioButtonJSX = MakeAreaRadioButtonJSX(
+      selectAreaButton,
+      onChange
+    );
     SetAreaRadioButtonJSXState(areaRadioButtonJSX);
     props.onChangeRadioButton(area);
   };

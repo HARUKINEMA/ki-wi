@@ -53,6 +53,8 @@ const App = (): JSX.Element => {
             メーカー：{machine.type}
             <br />
             場所：{machine.place}
+            <br />
+            <img src={machine.image} width="100%" height="100%" />
           </div>
         </InfoWindow>
       );
