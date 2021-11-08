@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import { Card } from "./component/RadioButton";
 import { CardRadioButton } from "./component/CardRadioButton";
+
+export enum Card {
+  Yes = 3,
+  No = 4,
+  All = 5,
+}
 
 export interface CardContainerProps {
   cardRadioButtons: CardRadioButton[];

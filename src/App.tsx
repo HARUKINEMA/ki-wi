@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Map, { Location } from "./Map";
-import { Building, Card } from "./component/RadioButton";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
-import { AreaContainer, AreaContainerProps } from "./AreaContainer";
+import { Building, AreaContainer, AreaContainerProps } from "./AreaContainer";
 import { Col, Container, Row } from "react-bootstrap";
-import { CardContainer, CardContainerProps } from "./CardContainer";
+import { Card, CardContainer, CardContainerProps } from "./CardContainer";
 function SetCenter(type: Building): Location {
   let center: Location = { lat: 0, lng: 0 };
   if (type == Building.COMMON_EDUCATIONAL) {
