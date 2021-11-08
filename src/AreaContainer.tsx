@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import { Building } from "./component/RadioButton";
 import { AreaRadioButton } from "./component/AreaRadioButton";
+
+export enum Building {
+  FACTORY_OF_ENGINEERING = 0,
+  COMMON_EDUCATIONAL = 1,
+  ALL = 2,
+}
 
 export interface AreaContainerProps {
   areaRadioButtons: AreaRadioButton[];
@@ -24,12 +29,12 @@ function MakeAreaRadioButtonJSX(
 
 export const AreaContainer = (props: AreaContainerProps): JSX.Element => {
   const onChange = (area: Building): void => {
-    const selectAreabutton = props.areaRadioButtons.map((areaRadioButton) => {
+    const selectAreaButton = props.areaRadioButtons.map((areaRadioButton) => {
       areaRadioButton.isChecked = area == areaRadioButton.area;
       return areaRadioButton;
     });
     const areaRadioButtonJSX = MakeAreaRadioButtonJSX(
-      selectAreabutton,
+      selectAreaButton,
       onChange
     );
     SetAreaRadioButtonJSXState(areaRadioButtonJSX);

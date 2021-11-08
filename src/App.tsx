@@ -29,7 +29,7 @@ function SetCenter(type: Building): Location {
 
 const App = (): JSX.Element => {
   const [popup, setPopup] = useState<JSX.Element>();
-  const [zoomSize, nSetSize] = useState<number>(17);
+  const [zoomSize, SetZoomSize] = useState<number>(17);
   const markersJsx: JSX.Element[] = InitMarkers(MakePopup());
   const center = { lat: 26.25334632814227, lng: 127.76666539719781 };
   const [centerState, setCenterState] = useState<Location>(center);
@@ -51,8 +51,8 @@ const App = (): JSX.Element => {
         position={locationMarker}
         onClick={() => {
           setPopup(popupsJSX[idx]);
-          nSetSize(18);
-          nSetSize(19);
+          SetZoomSize(18);
+          SetZoomSize(19);
         }}
       />
     );
@@ -69,8 +69,8 @@ const App = (): JSX.Element => {
           position={location}
           onClick={() => {
             setPopup(popupsJSX[idx]);
-            nSetSize(18);
-            nSetSize(19);
+            SetZoomSize(18);
+            SetZoomSize(19);
           }}
         />
       );
@@ -88,7 +88,7 @@ const App = (): JSX.Element => {
           position={locationPopup}
           onCloseClick={() => {
             setPopup(<div />);
-            nSetSize(17);
+            SetZoomSize(17);
           }}
         >
           <div>

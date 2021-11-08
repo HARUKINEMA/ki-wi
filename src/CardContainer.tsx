@@ -9,18 +9,18 @@ export enum Card {
 
 export interface CardContainerProps {
   cardRadioButtons: CardRadioButton[];
-  CardonChangeRadioButton: (card: Card) => void;
+  CardOnChangeRadioButton: (card: Card) => void;
 }
 
 function MakeCardRadioButtonJSX(
   cardRadioButtons: CardRadioButton[],
-  CardonChange: (card: Card) => void
+  CardOnChange: (card: Card) => void
 ): JSX.Element[] {
   return cardRadioButtons.map((value: CardRadioButton, idx: number) => {
     return (
       <CardRadioButton
         cardRadioButton={value}
-        CardonChanged={() => CardonChange(value.card)}
+        CardonChanged={() => CardOnChange(value.card)}
         key={idx}
       />
     );
@@ -29,17 +29,17 @@ function MakeCardRadioButtonJSX(
 
 export const CardContainer = (props: CardContainerProps): JSX.Element => {
   const onChange = (card: Card): void => {
-    const selectCardbutton = props.cardRadioButtons.map((cardRadioButton) => {
+    const selectCardButton = props.cardRadioButtons.map((cardRadioButton) => {
       cardRadioButton.isChecked = card == cardRadioButton.card;
       return cardRadioButton;
     });
 
     const cardRadioButtonJSX = MakeCardRadioButtonJSX(
-      selectCardbutton,
+      selectCardButton,
       onChange
     );
     SetCardRadioButtonJSXState(cardRadioButtonJSX);
-    props.CardonChangeRadioButton(card);
+    props.CardOnChangeRadioButton(card);
   };
 
   const cardRadioButtonJSX = MakeCardRadioButtonJSX(
