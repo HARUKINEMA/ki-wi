@@ -29,7 +29,7 @@ function SetCenter(type: Building): Location {
 
 const App = (): JSX.Element => {
   const [popup, setPopup] = useState<JSX.Element>();
-  const [nSize, nSetSize] = useState<number>(17);
+  const [zoomSize, nSetSize] = useState<number>(17);
   const markersJsx: JSX.Element[] = InitMarkers(MakePopup());
   const center = { lat: 26.25334632814227, lng: 127.76666539719781 };
   const [centerState, setCenterState] = useState<Location>(center);
@@ -250,7 +250,7 @@ const App = (): JSX.Element => {
         isChecked: false,
       },
       {
-        label: "ダメ",
+        label: "使用不可",
         card: Card.No,
         isChecked: false,
       },
@@ -267,7 +267,7 @@ const App = (): JSX.Element => {
               center={centerState}
               markers={markersJsxState}
               popup={popup}
-              nSize={nSize}
+              nSize={zoomSize}
             />
           </Col>
         </Row>
