@@ -29,7 +29,10 @@ export const AreaContainer = (props: AreaContainerProps): JSX.Element => {
       return areaRadioButton;
     });
 
-    const areaRadioButtonJSX = MakeAreaRadioButtonJSX(selectAreabutton, onChange);
+    const areaRadioButtonJSX = MakeAreaRadioButtonJSX(
+      selectAreabutton,
+      onChange
+    );
     SetAreaRadioButtonJSXState(areaRadioButtonJSX);
     props.onChangeRadioButton(area);
   };
