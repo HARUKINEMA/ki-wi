@@ -255,7 +255,7 @@ const App = (): JSX.Element => {
         isChecked: false,
       },
     ],
-    CardonChangeRadioButton: CardonChange,
+    CardOnChangeRadioButton: CardonChange,
   };
 
   return (
@@ -271,8 +271,8 @@ const App = (): JSX.Element => {
             />
           </Col>
         </Row>
+        <p>エリア選択</p>
         <Row>
-          <p>エリア選択</p>
           <Col md={4}>
             <AreaContainer
               areaRadioButtons={checkBoxProps.areaRadioButtons}
@@ -282,13 +282,14 @@ const App = (): JSX.Element => {
             />
           </Col>
         </Row>
+        <br />
+        <p>カード使用選択</p>
         <Row>
-          <p>カード使用選択</p>
           <Col md={4}>
             <CardContainer
               cardRadioButtons={CardcheckBoxProps.cardRadioButtons}
-              CardonChangeRadioButton={(card: Card) =>
-                CardcheckBoxProps.CardonChangeRadioButton(card)
+              CardOnChangeRadioButton={(card: Card) =>
+                CardcheckBoxProps.CardOnChangeRadioButton(card)
               }
             />
           </Col>
