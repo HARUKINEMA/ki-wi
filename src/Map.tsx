@@ -1,11 +1,5 @@
 import * as dotenv from "dotenv";
-import {
-  GoogleMap,
-  InfoWindow,
-  LoadScript,
-  Marker,
-} from "@react-google-maps/api";
-import * as data from "./drinking_machine.json";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import React, { useEffect, useState } from "react";
 
 export interface Location {
@@ -15,6 +9,9 @@ export interface Location {
 
 export interface MapProps {
   center: Location;
+  markers: JSX.Element[];
+  popup: JSX.Element | undefined;
+  nSize: number;
 }
 
 const Map = (props: MapProps): JSX.Element => {
@@ -27,11 +24,7 @@ const Map = (props: MapProps): JSX.Element => {
     marginTop: "20px",
     marginBottom: "20px",
   };
-  const markerJsx: JSX.Element[] = [];
-  const popupJsx: JSX.Element[] = [];
   const [myPositionMarkerJsx, setMyPositionMarkerJsx] = useState<JSX.Element>();
-  const [popup, setPopup] = useState<JSX.Element>();
-  const [nSize, nSetSize] = useState<number>(17);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -62,63 +55,17 @@ const Map = (props: MapProps): JSX.Element => {
     // [] つけないとレンダリングされる度に実行されるらしい
   }, []);
 
-  for (let i = 0; i < data.machines.length; i++) {
-    const location = {
-      lng: data.machines[i].location[0],
-      lat: data.machines[i].location[1],
-    };
-    const locationPopup = {
-      lng: data.machines[i].location[0],
-      lat: data.machines[i].location[1] + 0.00008,
-    };
-    const element = (
-      <Marker
-        key={location.lat + location.lng}
-        position={location}
-        onClick={() => {
-          setPopup(popupJsx[i]);
-          nSetSize(18);
-          nSetSize(19);
-        }}
-      />
-    );
-    /*keyの中身は要相談*/
-    markerJsx.push(element);
-
-    const elementPopup = (
-      <InfoWindow
-        key={location.lat + location.lng}
-        position={locationPopup}
-        onCloseClick={() => {
-          setPopup(<div></div>);
-          nSetSize(17);
-        }}
-      >
-        <div>
-          メーカー：{data.machines[i].type}
-          <br />
-          場所：{data.machines[i].place}
-          <br />
-          <div>
-            <img src={data.machines[i].image} width="100%" height="100%" />
-          </div>
-        </div>
-      </InfoWindow>
-    );
-
-    popupJsx.push(elementPopup);
-  }
   const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
   return (
     <LoadScript googleMapsApiKey={api}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={props.center}
-        zoom={nSize}
+        zoom={props.nSize}
       >
-        {markerJsx}
+        {props.markers}
         {myPositionMarkerJsx}
-        {popup}
+        {props.popup}
       </GoogleMap>
     </LoadScript>
   );
