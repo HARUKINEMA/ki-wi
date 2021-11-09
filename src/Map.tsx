@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export interface Location {
   lat: number;
@@ -25,8 +25,9 @@ const Map = (props: MapProps): JSX.Element => {
     marginBottom: "20px",
   };
   const [myPositionMarkerJsx, setMyPositionMarkerJsx] = useState<JSX.Element>();
+  const apiKey = process.env.REACT_APP_GOOGLE_API_KEY as string;
 
-  useEffect(() => {
+  const setMyPosition = () => {
     navigator.geolocation.getCurrentPosition(
       (value) => {
         const location = {
@@ -53,15 +54,17 @@ const Map = (props: MapProps): JSX.Element => {
       }
     );
     // [] つけないとレンダリングされる度に実行されるらしい
-  }, []);
+  };
 
-  const api = process.env.REACT_APP_GOOGLE_API_KEY as string;
   return (
-    <LoadScript googleMapsApiKey={api}>
+    <LoadScript googleMapsApiKey={apiKey}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={props.center}
         zoom={props.nSize}
+        onLoad={() => {
+          setMyPosition();
+        }}
       >
         {props.markers}
         {myPositionMarkerJsx}
