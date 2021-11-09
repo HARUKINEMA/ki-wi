@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { CardRadioButton } from "./component/CardRadioButton";
 
 export enum Card {
-  Yes = 3,
-  No = 4,
-  All = 5,
+  YES = 3,
+  NO = 4,
+  ALL = 5,
 }
 
 export interface CardContainerProps {
