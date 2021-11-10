@@ -6,7 +6,9 @@ import { InfoWindow, Marker } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
 import { AreaContainer, AreaContainerProps } from "./AreaContainer";
 import { Col, Container, Row } from "react-bootstrap";
-
+import { Usage } from "./Usage";
+import { Footer } from "./Fotter";
+import logo from "./logo.png";
 function SetCenter(type: Building): Location {
   let center: Location = {
     lat: 0,
@@ -53,6 +55,8 @@ const App = (): JSX.Element => {
             メーカー：{machine.type}
             <br />
             場所：{machine.place}
+            <br />
+            <img src={machine.image} width="100%" height="100%" />
           </div>
         </InfoWindow>
       );
@@ -157,13 +161,14 @@ const App = (): JSX.Element => {
     <div>
       <Container>
         <Row>
+          <Col md={5} />
+          <Col md={4}>
+            <img src={logo} alt={"non"} />
+          </Col>
+        </Row>
+        <Row>
           <Col md={12}>
-            <Map
-              center={centerState}
-              markers={markersJsxState}
-              popup={popup}
-              nSize={nSize}
-            />
+            <Usage />
           </Col>
         </Row>
         <Row>
@@ -174,6 +179,21 @@ const App = (): JSX.Element => {
                 checkBoxProps.onChangeRadioButton(area)
               }
             />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <Map
+              center={centerState}
+              markers={markersJsxState}
+              popup={popup}
+              nSize={nSize}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <Footer />
           </Col>
         </Row>
       </Container>
