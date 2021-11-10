@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import { Building } from "./CheckBox";
 import { AreaRadioButton } from "./component/AreaRadioButton";
+
+export enum Building {
+  FACTORY_OF_ENGINEERING = 0,
+  COMMON_EDUCATIONAL = 1,
+  ALL = 2,
+}
 
 export interface AreaContainerProps {
   areaRadioButtons: AreaRadioButton[];
