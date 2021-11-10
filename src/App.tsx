@@ -170,6 +170,9 @@ const App = (): JSX.Element => {
           <Col md={12}>
             <Usage />
           </Col>
+          <a href="https://forms.gle/kETEXwQpzEgjS9cx6">
+            フィードバックリンク:このサイトの改善にご協力ください(googleアカウントが必要です)
+          </a>
         </Row>
         <Row>
           <Col md={4}>
