@@ -234,6 +234,11 @@ const App = (): JSX.Element => {
           <Col md={12}>
             <Usage />
           </Col>
+          <Col md={12}>
+            <a href="https://forms.gle/kETEXwQpzEgjS9cx6">
+              フィードバックリンク:このサイトの改善にご協力ください(googleアカウントが必要です)
+            </a>
+          </Col>
         </Row>
         <p>エリア選択</p>
         <Row>
