@@ -145,6 +145,7 @@ const App = (): JSX.Element => {
     }
     return cardTmp;
   }
+
   /** 1 新しい検索条件を保持する変数の追加*/
   let area: Building;
   area = Building.ALL;
@@ -261,6 +262,13 @@ const App = (): JSX.Element => {
                 CardCheckBoxProps.CardOnChangeRadioButton(card)
               }
             />
+          </Col>
+        </Row>
+        <br />
+        <p>商品検索</p>
+        <Row>
+          <Col md={12}>
+            <input type="text"></input>
           </Col>
         </Row>
         <Row>
