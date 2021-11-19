@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 
-interface IState {
-    srh: string;
-    onChange: (value: string) => void;
-}
-
-
-export const SearchForm = (props: IState) => {
-    return (
-        <input
-            type="text"
-            value={props.srh}
-            onChange={event => props.onChange(event.target.value)} />
-    );
-}
-
-
+export const SearchForm = (): JSX.Element => {
+  const [query, setQuery] = useState<string>();
+  return (
+    <input
+      type="text"
+      value={query}
+      onChange={(event) => {
+        console.log(event.target.value);
+        setQuery(event.target.value);
+      }}
+    />
+  );
+};

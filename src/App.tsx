@@ -9,6 +9,7 @@ import { Card, CardContainer, CardContainerProps } from "./CardContainer";
 import { Usage } from "./Usage";
 import { Footer } from "./Footer";
 import logo from "./logo.png";
+import { SearchForm } from './ProductContainer';
 function SetCenter(type: Building): Location {
   let center: Location = { lat: 0, lng: 0 };
   if (type == Building.COMMON_EDUCATIONAL) {
@@ -268,7 +269,7 @@ const App = (): JSX.Element => {
         <p>商品検索</p>
         <Row>
           <Col md={12}>
-            <input type="text"></input>
+            <SearchForm ></SearchForm>
           </Col>
         </Row>
         <Row>
