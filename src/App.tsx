@@ -31,6 +31,73 @@ function SetCenter(type: Building): Location {
   return center;
 }
 
+export function AreaSelect(
+  area: Building,
+  tmpMarkers: number[],
+  machines: DrinkMachine[]
+): number[] {
+  const areaTmp: number[] = [];
+  if (area == Building.ALL) {
+    tmpMarkers.map((id) => {
+      areaTmp.push(id);
+    });
+  } else if (area == Building.COMMON_EDUCATIONAL) {
+    tmpMarkers.map((id) => {
+      if (machines[id].area == "共通教育棟") {
+        areaTmp.push(id);
+      }
+    });
+  } else if (area == Building.FACTORY_OF_ENGINEERING) {
+    tmpMarkers.map((id) => {
+      if (machines[id].area == "工学部") {
+        areaTmp.push(id);
+      }
+    });
+  }
+  return areaTmp;
+}
+
+export function CardSelect(
+  card: Card,
+  tmpMarkers: number[],
+  machines: DrinkMachine[]
+): number[] {
+  const cardTmp: number[] = [];
+  if (card == Card.ALL) {
+    tmpMarkers.map((id) => {
+      cardTmp.push(id);
+    });
+  } else if (card == Card.YES) {
+    tmpMarkers.map((id) => {
+      if (machines[id].card == "Yes") {
+        cardTmp.push(id);
+      }
+    });
+  } else if (card == Card.NO) {
+    tmpMarkers.map((id) => {
+      if (machines[id].card == "No") {
+        cardTmp.push(id);
+      }
+    });
+  }
+  return cardTmp;
+}
+
+export function ProductSelect(
+  input: string,
+  machinesId: number[],
+  machines: DrinkMachine[]
+): number[] {
+  const selectedId: number[] = [];
+  machinesId.map((id) => {
+    for (let i = 0; i < machines[id].contents.length; i++) {
+      if (machines[id].contents[i] == input) {
+        selectedId.push(id);
+      }
+    }
+  });
+  return selectedId;
+}
 const App = (): JSX.Element => {
   const [popup, setPopup] = useState<JSX.Element>();
   const [zoomSize, SetZoomSize] = useState<number>(17);
@@ -103,62 +170,6 @@ const App = (): JSX.Element => {
     });
   }
 
-  function AreaSelect(area: Building, tmpMarkers: number[]): number[] {
-    const areaTmp: number[] = [];
-    if (area == Building.ALL) {
-      tmpMarkers.map((id) => {
-        areaTmp.push(id);
-      });
-    } else if (area == Building.COMMON_EDUCATIONAL) {
-      tmpMarkers.map((id) => {
-        if (data.machines[id].area == "共通教育棟") {
-          areaTmp.push(id);
-        }
-      });
-    } else if (area == Building.FACTORY_OF_ENGINEERING) {
-      tmpMarkers.map((id) => {
-        if (data.machines[id].area == "工学部") {
-          areaTmp.push(id);
-        }
-      });
-    }
-    return areaTmp;
-  }
-
-  function CardSelect(card: Card, tmpMarkers: number[]): number[] {
-    const cardTmp: number[] = [];
-    if (card == Card.ALL) {
-      tmpMarkers.map((id) => {
-        cardTmp.push(id);
-      });
-    } else if (card == Card.YES) {
-      tmpMarkers.map((id) => {
-        if (data.machines[id].card == "Yes") {
-          cardTmp.push(id);
-        }
-      });
-    } else if (card == Card.NO) {
-      tmpMarkers.map((id) => {
-        if (data.machines[id].card == "No") {
-          cardTmp.push(id);
-        }
-      });
-    }
-    return cardTmp;
-  }
-
-  function ProductSelect(input: string, machinesId: number[]): number[] {
-    const selectedId: number[] = [];
-    machinesId.map((id) => {
-      for (let i = 0; i < data.machines[id].contents.length; i++) {
-        if (data.machines[id].contents[i] == input) {
-          selectedId.push(id);
-        }
-      }
-    });
-    return selectedId;
-  }
-
   /** 1 新しい検索条件を保持する変数の追加*/
   let area: Building;
   area = Building.ALL;
@@ -179,9 +190,13 @@ const App = (): JSX.Element => {
       return idx.id;
     });
     /** 4 作成した〇〇Select(type,tmpMarkers):number[]をtmpMarkersに対して実行*/
-    tmpMarkers = AreaSelect(area, tmpMarkers);
-    tmpMarkers = CardSelect(card, tmpMarkers);
-    tmpMarkers = ProductSelect("琉球コーラ", tmpMarkers);
+    tmpMarkers = AreaSelect(area, tmpMarkers, data.machines as DrinkMachine[]);
+    tmpMarkers = CardSelect(card, tmpMarkers, data.machines as DrinkMachine[]);
+    tmpMarkers = ProductSelect(
+      "琉球コーラ",
+      tmpMarkers,
+      data.machines as DrinkMachine[]
+    );
     return tmpMarkers.map((idx) => {
       return MakeMarker(idx, popupsJSX);
     });
