@@ -9,7 +9,7 @@ import { Card, CardContainer, CardContainerProps } from "./CardContainer";
 import { Usage } from "./Usage";
 import { Footer } from "./Footer";
 import logo from "./logo.png";
-import { SearchForm } from './ProductContainer';
+import { SearchForm } from "./ProductContainer";
 function SetCenter(type: Building): Location {
   let center: Location = { lat: 0, lng: 0 };
   if (type == Building.COMMON_EDUCATIONAL) {
@@ -147,6 +147,10 @@ const App = (): JSX.Element => {
     return cardTmp;
   }
 
+  function ProductSelect(input: String, machinesId: number[]): number[] {
+    machinesId.map(machinesId )
+  }
+
   /** 1 新しい検索条件を保持する変数の追加*/
   let area: Building;
   area = Building.ALL;
@@ -269,7 +273,7 @@ const App = (): JSX.Element => {
         <p>商品検索</p>
         <Row>
           <Col md={12}>
-            <SearchForm ></SearchForm>
+            <SearchForm></SearchForm>
           </Col>
         </Row>
         <Row>
