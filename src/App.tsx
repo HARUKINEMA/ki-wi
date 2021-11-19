@@ -148,15 +148,15 @@ const App = (): JSX.Element => {
   }
 
   function ProductSelect(input: string, machinesId: number[]): number[] {
-    const returnMarkers: number[] = [];
+    const selectedId: number[] = [];
     machinesId.map((id) => {
       for (let i = 0; i < data.machines[id].contents.length; i++) {
         if (data.machines[id].contents[i] == input) {
-          return id;
+          selectedId.push(id);
         }
       }
     });
-    return returnMarkers;
+    return selectedId;
   }
 
   /** 1 新しい検索条件を保持する変数の追加*/
@@ -181,6 +181,7 @@ const App = (): JSX.Element => {
     /** 4 作成した〇〇Select(type,tmpMarkers):number[]をtmpMarkersに対して実行*/
     tmpMarkers = AreaSelect(area, tmpMarkers);
     tmpMarkers = CardSelect(card, tmpMarkers);
+    tmpMarkers = ProductSelect("琉球コーラ", tmpMarkers);
     return tmpMarkers.map((idx) => {
       return MakeMarker(idx, popupsJSX);
     });
