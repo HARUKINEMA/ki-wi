@@ -147,8 +147,16 @@ const App = (): JSX.Element => {
     return cardTmp;
   }
 
-  function ProductSelect(input: String, machinesId: number[]): number[] {
-    machinesId.map(machinesId )
+  function ProductSelect(input: string, machinesId: number[]): number[] {
+    const returnMarkers: number[] = [];
+    machinesId.map((id) => {
+      for (let i = 0; i < data.machines[id].contents.length; i++) {
+        if (data.machines[id].contents[i] == input) {
+          return id;
+        }
+      }
+    });
+    return returnMarkers;
   }
 
   /** 1 新しい検索条件を保持する変数の追加*/
