@@ -88,6 +88,9 @@ export function ProductSelect(
   machinesId: number[],
   machines: DrinkMachine[]
 ): number[] {
+  if(input == "" || input ==" " || input =="　"){
+    return machinesId;
+  }
   const selectedId: number[] = [];
   machinesId.map((id) => {
     for (let i = 0; i < machines[id].contents.length; i++) {
@@ -98,6 +101,7 @@ export function ProductSelect(
   });
   return selectedId;
 }
+
 const App = (): JSX.Element => {
   const [popup, setPopup] = useState<JSX.Element>();
   const [zoomSize, SetZoomSize] = useState<number>(17);

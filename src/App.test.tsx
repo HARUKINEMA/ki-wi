@@ -27,9 +27,16 @@ test("ProductSelect unit test", () => {
   // 完全一致
   expect(ProductSelect("琉球コーラ", [0, 1], machines)).toStrictEqual([0]);
 
+  // 空白は検索しない
+  expect(ProductSelect("", [0, 1], machines)).toStrictEqual([0, 1]);
+
+  // 半角スペースのみでも検索しない
+  expect(ProductSelect(" ", [0, 1], machines)).toStrictEqual([0, 1]);
+
+  // 全角スペースのみでも検索しない
+  expect(ProductSelect("　", [0, 1], machines)).toStrictEqual([0, 1]);
+
   // 部分一致
   expect(ProductSelect("コーラ", [0, 1], machines)).toStrictEqual([0]);
 
-  // 空白は検索しない
-  expect(ProductSelect("", [0, 1], machines)).toStrictEqual([0, 1]);
 });
