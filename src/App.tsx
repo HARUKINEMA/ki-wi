@@ -88,14 +88,27 @@ export function ProductSelect(
   machinesId: number[],
   machines: DrinkMachine[]
 ): number[] {
-  if(input == "" || input ==" " || input =="　"){
+  if (input == "" || input == " " || input == "　") {
     return machinesId;
+  }
+  const tmpInput: string[] = [];
+  for (let i = 0; i < input.split(" ").length; i++) {
+    tmpInput.push(input.split(" ")[i]);
+  }
+  const tmpInput2: string[] = [];
+  for (let k = 0; k < tmpInput.length; k++) {
+    for (let j = 0; j < tmpInput[k].split("　").length; j++) {
+      tmpInput2.push(tmpInput[k].split("　")[j]);
+    }
   }
   const selectedId: number[] = [];
   machinesId.map((id) => {
     for (let i = 0; i < machines[id].contents.length; i++) {
-      if (machines[id].contents[i] == input) {
-        selectedId.push(id);
+      for(let j=0; j < tmpInput2.length;j++){
+        if (machines[id].contents[i] == tmpInput2[j]) {
+          selectedId.push(id);
+          break;
+        }
       }
     }
   });
@@ -197,7 +210,7 @@ const App = (): JSX.Element => {
     tmpMarkers = AreaSelect(area, tmpMarkers, data.machines as DrinkMachine[]);
     tmpMarkers = CardSelect(card, tmpMarkers, data.machines as DrinkMachine[]);
     tmpMarkers = ProductSelect(
-      "琉球コーラ",
+      "琉球コーラ コーラ　琉球",
       tmpMarkers,
       data.machines as DrinkMachine[]
     );

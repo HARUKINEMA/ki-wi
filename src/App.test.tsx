@@ -38,5 +38,4 @@ test("ProductSelect unit test", () => {
 
   // 部分一致
   expect(ProductSelect("コーラ", [0, 1], machines)).toStrictEqual([0]);
-
 });
