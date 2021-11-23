@@ -91,22 +91,22 @@ export function ProductSelect(
   if (input == "" || input == " " || input == "　" || input == undefined) {
     return machinesId;
   } else {
-    const tmpInput: string[] = [];
+    const splittingInput1: string[] = [];
     for (let i = 0; i < input.split(" ").length; i++) {
-      tmpInput.push(input.split(" ")[i]);
+      splittingInput1.push(input.split(" ")[i]);
     }
-    const tmpInput2: string[] = [];
-    for (let k = 0; k < tmpInput.length; k++) {
-      for (let j = 0; j < tmpInput[k].split("　").length; j++) {
-        tmpInput2.push(tmpInput[k].split("　")[j]);
+    const splittingInput2: string[] = [];
+    for (let k = 0; k < splittingInput1.length; k++) {
+      for (let j = 0; j < splittingInput1[k].split("　").length; j++) {
+        splittingInput2.push(splittingInput1[k].split("　")[j]);
       }
     }
     const selectedId: number[] = [];
     machinesId.map((id) => {
       for (let i = 0; i < machines[id].contents.length; i++) {
         for (let j = 0; j < machines[id].contents[i].length; j++) {
-          for (let k = 0; k < tmpInput2.length; k++) {
-            const re = tmpInput2[k];
+          for (let k = 0; k < splittingInput2.length; k++) {
+            const re = splittingInput2[k];
             if (machines[id].contents[i].match(re)) {
               if (selectedId.length == 0) {
                 selectedId.push(id);
