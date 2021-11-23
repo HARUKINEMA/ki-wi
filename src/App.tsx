@@ -88,31 +88,47 @@ export function ProductSelect(
   machinesId: number[],
   machines: DrinkMachine[]
 ): number[] {
-  if (input == "" || input == " " || input == "　") {
+  if (input == "" || input == " " || input == "　" || input == undefined) {
     return machinesId;
-  }
-  const tmpInput: string[] = [];
-  for (let i = 0; i < input.split(" ").length; i++) {
-    tmpInput.push(input.split(" ")[i]);
-  }
-  const tmpInput2: string[] = [];
-  for (let k = 0; k < tmpInput.length; k++) {
-    for (let j = 0; j < tmpInput[k].split("　").length; j++) {
-      tmpInput2.push(tmpInput[k].split("　")[j]);
+  } else {
+    const tmpInput: string[] = [];
+    for (let i = 0; i < input.split(" ").length; i++) {
+      tmpInput.push(input.split(" ")[i]);
     }
-  }
-  const selectedId: number[] = [];
-  machinesId.map((id) => {
-    for (let i = 0; i < machines[id].contents.length; i++) {
-      for(let j=0; j < tmpInput2.length;j++){
-        if (machines[id].contents[i] == tmpInput2[j]) {
-          selectedId.push(id);
-          break;
-        }
+    const tmpInput2: string[] = [];
+    for (let k = 0; k < tmpInput.length; k++) {
+      for (let j = 0; j < tmpInput[k].split("　").length; j++) {
+        tmpInput2.push(tmpInput[k].split("　")[j]);
       }
     }
-  });
-  return selectedId;
+    const selectedId: number[] = [];
+    machinesId.map((id) => {
+      for (let i = 0; i < machines[id].contents.length; i++) {
+        for (let j = 0; j < machines[id].contents[i].length; j++) {
+          for (let k = 0; k < tmpInput2.length; k++) {
+            const re = tmpInput2[k];
+            if (machines[id].contents[i].match(re)) {
+              if (selectedId.length == 0) {
+                selectedId.push(id);
+              } else {
+                for (let l = 0; l < selectedId.length; l++) {
+                  if (selectedId[l] == machines[id].id) {
+                    break;
+                  } else if (
+                    selectedId[l] != machines[id].id &&
+                    l == selectedId.length
+                  ) {
+                    selectedId.push(id);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+    return selectedId;
+  }
 }
 
 const App = (): JSX.Element => {
