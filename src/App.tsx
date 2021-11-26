@@ -243,7 +243,7 @@ const App = (): JSX.Element => {
     setCenterState(SetCenter(area));
     setMarkersJsxState(SelectMarkers(area, MakePopup()));
   };
-  const CardOnChange = (card: Card) => {
+  const cardOnChange = (card: Card) => {
     setMarkersJsxState(SelectMarkers(card, MakePopup()));
   };
   const inputOnChange = (query: string) => {
@@ -288,7 +288,7 @@ const App = (): JSX.Element => {
         isChecked: false,
       },
     ],
-    CardOnChangeRadioButton: CardOnChange,
+    CardOnChangeRadioButton: cardOnChange,
   };
 
   return (
