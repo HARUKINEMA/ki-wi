@@ -212,11 +212,11 @@ const App = (): JSX.Element => {
   productQuery = "";
 
   function SelectMarkers(
-    type: Building | Card | string/** 2, 1に応じてtypeの型追加 */,
+    type: Building | Card | string /** 2, 1に応じてtypeの型追加 */,
     popupsJSX: JSX.Element[]
   ): JSX.Element[] {
     /** 3, 2に応じて1の変数を変更するif文の追加 */
-    if (typeof type == "string"){
+    if (typeof type == "string") {
       productQuery = type;
     } else if (type <= 2) {
       area = type as Building;
@@ -337,7 +337,9 @@ const App = (): JSX.Element => {
         <p>商品検索</p>
         <Row>
           <Col md={12}>
-            <SearchForm onChange={(query: string) => inputOnChange(query)}></SearchForm>
+            <SearchForm
+              onChange={(query: string) => inputOnChange(query)}
+            ></SearchForm>
           </Col>
         </Row>
         <Row>

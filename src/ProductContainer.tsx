@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export interface SearchFormProps{
+export interface SearchFormProps {
   onChange: (query: string) => void;
 }
 
