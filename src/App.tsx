@@ -88,12 +88,18 @@ export function ProductSelect(
   machinesId: number[],
   machines: DrinkMachine[]
 ): number[] {
-  if (input == "" || input == " " || input == "　" || input == undefined) {
+  const TargetString = input.replace(/\s{2,}/g, " ");
+  if (
+    TargetString == "" ||
+    TargetString == " " ||
+    TargetString == "　" ||
+    TargetString == undefined
+  ) {
     return machinesId;
   } else {
     const splittingInput1: string[] = [];
-    for (let i = 0; i < input.split(" ").length; i++) {
-      splittingInput1.push(input.split(" ")[i]);
+    for (let i = 0; i < TargetString.split(" ").length; i++) {
+      splittingInput1.push(TargetString.split(" ")[i]);
     }
     const splittingInput2: string[] = [];
     for (let k = 0; k < splittingInput1.length; k++) {
