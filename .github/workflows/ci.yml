@@ -23,6 +23,9 @@ jobs:
       - name: install
         run: npm i
 
+      - name: test
+        run: npm run test
+
       - name: Run eslint
         run: npm run fix
 
