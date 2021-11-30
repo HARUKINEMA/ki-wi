@@ -47,7 +47,7 @@ test("ProductSelect unit test", () => {
 
   // 商品名の後に空白(半角(大量))
   expect(ProductSelect("コーラ　　　　  ", [0, 1], machines)).toStrictEqual([
-    0,
+    0,1
   ]);
 
   // 空白多め
