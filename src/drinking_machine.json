@@ -131,12 +131,6 @@
       "area": "工学部",
       "image": "https://drive.google.com/uc?id=14CFbFSRd3Opvm-9FybaQ3BVL1Ba90ITE"
     },
-
-
-
-
-
-
     {
       "id": 8,
       "type": "不明",
@@ -302,16 +296,18 @@
       "type": "大塚ウエルネスベンディング",
       "place": "共通教育棟2号館1階",
       "location": [127.76775878026744, 26.24828500046189],
-      "contents": ["カロリーメイト", "SOYJOY"],
+      "contents": [
+        "ソイジョイ(アーモンドチョコレート)",
+        "ソイジョイ(ブルーベリー)",
+        "ソイジョイ(ミックスベリー)",
+        "カロリーメイト(チーズ味)",
+        "カロリーメイト(チュコレート味)",
+        "カロリーメイト(味)"
+      ],
       "card": "No",
       "area": "共通教育棟",
       "image": "https://drive.google.com/uc?id=1A-iJhi0N_CW9EAceJa_c7hXQ3gYiJ2hx"
     },
-
-
-
-
-
     {
       "id": 13,
       "type": "apex",
