@@ -25,7 +25,7 @@ export const RadioButton = (props: RadioButtonProps): JSX.Element => {
         checked={props.isChecked}
         onChange={() => props.onChanged()}
       />
-      <label htmlFor={(props.label  + uId) as string}> {props.label} </label>
+      <label htmlFor={(props.label + uId) as string}> {props.label} </label>
     </div>
   );
 };
