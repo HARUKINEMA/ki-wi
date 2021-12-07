@@ -10,6 +10,33 @@ import { Usage } from "./Usage";
 import { Footer } from "./Footer";
 import logo from "./logo.png";
 import { SearchForm } from "./ProductContainer";
+import axios from "axios";
+
+interface json {
+  location: number[];
+}
+
+const Axios_sample = (): json => {
+  // エラー用に空データを準備
+  let return_Json: json = { location: [0, 0] };
+
+  axios
+    .post<json>("http://localhost:8000/api/machine?lat=100&lng=333")
+    .then((results) => {
+      return_Json = results.data;
+      console.log("通信成功");
+      console.log(return_Json);
+      // 成功したら取得できたデータを返す
+      return return_Json;
+    })
+    .catch((error) => {
+      console.log("通信失敗");
+      console.log(error.status);
+      // 失敗したときは空のjsonを返す
+    });
+  return return_Json;
+};
+
 function SetCenter(type: Building): Location {
   let center: Location = { lat: 0, lng: 0 };
   if (type == Building.COMMON_EDUCATIONAL) {
@@ -366,7 +393,13 @@ const App = (): JSX.Element => {
         <Row>
           <Col md={9}></Col>
           <Col md={3}>
-            <Button>新規に自動販売機を登録(現在地)</Button>
+            <Button
+              onClick={() => {
+                Axios_sample();
+              }}
+            >
+              新規に自動販売機を登録(現在地)
+            </Button>
           </Col>
         </Row>
         <Row>
