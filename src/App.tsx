@@ -9,6 +9,7 @@ import { Card, CardContainer, CardContainerProps } from "./CardContainer";
 import { Usage } from "./Usage";
 import { Footer } from "./Footer";
 import logo from "./logo.png";
+import { SearchForm } from "./ProductContainer";
 function SetCenter(type: Building): Location {
   let center: Location = { lat: 0, lng: 0 };
   if (type == Building.COMMON_EDUCATIONAL) {
@@ -28,6 +29,112 @@ function SetCenter(type: Building): Location {
     };
   }
   return center;
+}
+
+export function AreaSelect(
+  area: Building,
+  tmpMarkers: number[],
+  machines: DrinkMachine[]
+): number[] {
+  const areaTmp: number[] = [];
+  if (area == Building.ALL) {
+    tmpMarkers.map((id) => {
+      areaTmp.push(id);
+    });
+  } else if (area == Building.COMMON_EDUCATIONAL) {
+    tmpMarkers.map((id) => {
+      if (machines[id].area == "共通教育棟") {
+        areaTmp.push(id);
+      }
+    });
+  } else if (area == Building.FACTORY_OF_ENGINEERING) {
+    tmpMarkers.map((id) => {
+      if (machines[id].area == "工学部") {
+        areaTmp.push(id);
+      }
+    });
+  }
+  return areaTmp;
+}
+
+export function CardSelect(
+  card: Card,
+  tmpMarkers: number[],
+  machines: DrinkMachine[]
+): number[] {
+  const cardTmp: number[] = [];
+  if (card == Card.ALL) {
+    tmpMarkers.map((id) => {
+      cardTmp.push(id);
+    });
+  } else if (card == Card.YES) {
+    tmpMarkers.map((id) => {
+      if (machines[id].card == "Yes") {
+        cardTmp.push(id);
+      }
+    });
+  } else if (card == Card.NO) {
+    tmpMarkers.map((id) => {
+      if (machines[id].card == "No") {
+        cardTmp.push(id);
+      }
+    });
+  }
+  return cardTmp;
+}
+
+export function ProductSelect(
+  input: string,
+  machinesId: number[],
+  machines: DrinkMachine[]
+): number[] {
+  const TargetString = input.replace(/\s{2,}/g, " ");
+  if (
+    TargetString == "" ||
+    TargetString == " " ||
+    TargetString == "　" ||
+    TargetString == undefined
+  ) {
+    return machinesId;
+  } else {
+    const splittingInput1: string[] = [];
+    for (let i = 0; i < TargetString.split(" ").length; i++) {
+      splittingInput1.push(TargetString.split(" ")[i]);
+    }
+    const splittingInput2: string[] = [];
+    for (let k = 0; k < splittingInput1.length; k++) {
+      for (let j = 0; j < splittingInput1[k].split("　").length; j++) {
+        splittingInput2.push(splittingInput1[k].split("　")[j]);
+      }
+    }
+    const selectedId: number[] = [];
+    machinesId.map((id) => {
+      for (let i = 0; i < machines[id].contents.length; i++) {
+        for (let j = 0; j < machines[id].contents[i].length; j++) {
+          for (let k = 0; k < splittingInput2.length; k++) {
+            const re = splittingInput2[k];
+            if (machines[id].contents[i].match(re)) {
+              if (selectedId.length == 0) {
+                selectedId.push(id);
+              } else {
+                for (let l = 0; l < selectedId.length; l++) {
+                  if (selectedId[l] == machines[id].id) {
+                    break;
+                  } else if (
+                    selectedId[l] != machines[id].id &&
+                    l == selectedId.length
+                  ) {
+                    selectedId.push(id);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+    return selectedId;
+  }
 }
 
 const App = (): JSX.Element => {
@@ -102,61 +209,22 @@ const App = (): JSX.Element => {
     });
   }
 
-  function AreaSelect(area: Building, tmpMarkers: number[]): number[] {
-    const areaTmp: number[] = [];
-    if (area == Building.ALL) {
-      tmpMarkers.map((id) => {
-        areaTmp.push(id);
-      });
-    } else if (area == Building.COMMON_EDUCATIONAL) {
-      tmpMarkers.map((id) => {
-        if (data.machines[id].area == "共通教育棟") {
-          areaTmp.push(id);
-        }
-      });
-    } else if (area == Building.FACTORY_OF_ENGINEERING) {
-      tmpMarkers.map((id) => {
-        if (data.machines[id].area == "工学部") {
-          areaTmp.push(id);
-        }
-      });
-    }
-    return areaTmp;
-  }
-
-  function CardSelect(card: Card, tmpMarkers: number[]): number[] {
-    const cardTmp: number[] = [];
-    if (card == Card.ALL) {
-      tmpMarkers.map((id) => {
-        cardTmp.push(id);
-      });
-    } else if (card == Card.YES) {
-      tmpMarkers.map((id) => {
-        if (data.machines[id].card == "Yes") {
-          cardTmp.push(id);
-        }
-      });
-    } else if (card == Card.NO) {
-      tmpMarkers.map((id) => {
-        if (data.machines[id].card == "No") {
-          cardTmp.push(id);
-        }
-      });
-    }
-    return cardTmp;
-  }
   /** 1 新しい検索条件を保持する変数の追加*/
   let area: Building;
   area = Building.ALL;
   let card: Card;
   card = Card.ALL;
+  let productQuery: string;
+  productQuery = "";
 
   function SelectMarkers(
-    type: Building | Card /** 2, 1に応じてtypeの型追加 */,
+    type: Building | Card | string /** 2, 1に応じてtypeの型追加 */,
     popupsJSX: JSX.Element[]
   ): JSX.Element[] {
     /** 3, 2に応じて1の変数を変更するif文の追加 */
-    if (type <= 2) {
+    if (typeof type == "string") {
+      productQuery = type;
+    } else if (type <= 2) {
       area = type as Building;
     } else if (2 < type && type <= 5) {
       card = type as Card;
@@ -165,8 +233,13 @@ const App = (): JSX.Element => {
       return idx.id;
     });
     /** 4 作成した〇〇Select(type,tmpMarkers):number[]をtmpMarkersに対して実行*/
-    tmpMarkers = AreaSelect(area, tmpMarkers);
-    tmpMarkers = CardSelect(card, tmpMarkers);
+    tmpMarkers = AreaSelect(area, tmpMarkers, data.machines as DrinkMachine[]);
+    tmpMarkers = CardSelect(card, tmpMarkers, data.machines as DrinkMachine[]);
+    tmpMarkers = ProductSelect(
+      productQuery,
+      tmpMarkers,
+      data.machines as DrinkMachine[]
+    );
     return tmpMarkers.map((idx) => {
       return MakeMarker(idx, popupsJSX);
     });
@@ -176,8 +249,11 @@ const App = (): JSX.Element => {
     setCenterState(SetCenter(area));
     setMarkersJsxState(SelectMarkers(area, MakePopup()));
   };
-  const CardOnChange = (card: Card) => {
+  const cardOnChange = (card: Card) => {
     setMarkersJsxState(SelectMarkers(card, MakePopup()));
+  };
+  const inputOnChange = (query: string) => {
+    setMarkersJsxState(SelectMarkers(query, MakePopup()));
   };
   const checkBoxProps: AreaContainerProps = {
     areaRadioButtons: [
@@ -218,7 +294,7 @@ const App = (): JSX.Element => {
         isChecked: false,
       },
     ],
-    CardOnChangeRadioButton: CardOnChange,
+    CardOnChangeRadioButton: cardOnChange,
   };
 
   return (
@@ -276,6 +352,15 @@ const App = (): JSX.Element => {
                 CardCheckBoxProps.CardOnChangeRadioButton(card)
               }
             />
+          </Col>
+        </Row>
+        <br />
+        <p>商品検索</p>
+        <Row>
+          <Col md={12}>
+            <SearchForm
+              onChange={(query: string) => inputOnChange(query)}
+            ></SearchForm>
           </Col>
         </Row>
         <Row>
