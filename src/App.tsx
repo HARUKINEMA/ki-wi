@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
 import { Building, AreaContainer, AreaContainerProps } from "./AreaContainer";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { Card, CardContainer, CardContainerProps } from "./CardContainer";
 import { Usage } from "./Usage";
 import { Footer } from "./Footer";
@@ -306,17 +306,26 @@ const App = (): JSX.Element => {
             <img src={logo} alt={"non"} />
           </Col>
         </Row>
+
         <Row>
           <Col md={12}>
             <Usage />
           </Col>
+        </Row>
+
+        <Row>
           <Col md={12}>
             <a href="https://forms.gle/kETEXwQpzEgjS9cx6">
               フィードバックリンク:このサイトの改善にご協力ください(googleアカウントが必要です)
             </a>
           </Col>
         </Row>
-        <p>エリア選択</p>
+        <br />
+        <Row>
+          <Col md={4}>
+            <h3>エリア選択</h3>
+          </Col>
+        </Row>
         <Row>
           <Col md={4}>
             <AreaContainer
@@ -328,7 +337,13 @@ const App = (): JSX.Element => {
           </Col>
         </Row>
         <br />
-        <p>カード使用選択</p>
+
+        <Row>
+          <Col md={4}>
+            <h3>カード使用選択</h3>
+          </Col>
+        </Row>
+
         <Row>
           <Col md={4}>
             <CardContainer
@@ -346,6 +361,12 @@ const App = (): JSX.Element => {
             <SearchForm
               onChange={(query: string) => inputOnChange(query)}
             ></SearchForm>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={9}></Col>
+          <Col md={3}>
+            <Button>新規に自動販売機を登録(現在地)</Button>
           </Col>
         </Row>
         <Row>
