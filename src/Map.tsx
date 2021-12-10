@@ -12,6 +12,7 @@ export interface MapProps {
   markers: JSX.Element[];
   popup: JSX.Element | undefined;
   nSize: number;
+  myPosition: (lat: number, lng: number) => void;
 }
 
 const Map = (props: MapProps): JSX.Element => {
@@ -34,6 +35,7 @@ const Map = (props: MapProps): JSX.Element => {
           lng: value.coords.longitude,
           lat: value.coords.latitude,
         };
+        props.myPosition(location.lat, location.lng);
         const options: google.maps.Icon = {
           url: URL,
           scaledSize: new google.maps.Size(40, 40),
