@@ -21,7 +21,7 @@ const Axios_sample = (): json => {
   let return_Json: json = { location: [0, 0] };
 
   axios
-    .post<json>("http://localhost:8000/api/machine?lat=100&lng=333")
+    .post<json>("http://140.83.54.33/api/machine?lat=100&lng=333")
     .then((results) => {
       return_Json = results.data;
       console.log("通信成功");
