@@ -12,16 +12,22 @@ import logo from "./logo.png";
 import { SearchForm } from "./ProductContainer";
 import axios from "axios";
 
+const myPosition = { lat: 0, lng: 0 };
 interface json {
   location: number[];
 }
 
-const Axios_sample = (): json => {
+const PostLocation = (): json => {
   // エラー用に空データを準備
   let return_Json: json = { location: [0, 0] };
 
   axios
-    .post<json>("http://140.83.54.33/api/machine?lat=100&lng=333")
+    .post<json>(
+      "http://140.83.54.33/api/machine?lat=" +
+        myPosition.lat +
+        "&lng=" +
+        myPosition.lng
+    )
     .then((results) => {
       return_Json = results.data;
       console.log("通信成功");
@@ -395,7 +401,7 @@ const App = (): JSX.Element => {
           <Col md={3}>
             <Button
               onClick={() => {
-                Axios_sample();
+                PostLocation();
               }}
             >
               新規に自動販売機を登録(現在地)
@@ -409,6 +415,10 @@ const App = (): JSX.Element => {
               markers={markersJsxState}
               popup={popup}
               nSize={zoomSize}
+              myPosition={(lat: number, lng: number) => {
+                myPosition.lat = lat;
+                myPosition.lng = lng;
+              }}
             />
           </Col>
         </Row>
