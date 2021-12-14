@@ -17,7 +17,7 @@ interface json {
   location: number[];
 }
 
-const Axios_sample = (): json => {
+const PostLocation = (): json => {
   // エラー用に空データを準備
   let return_Json: json = { location: [0, 0] };
 
@@ -401,7 +401,7 @@ const App = (): JSX.Element => {
           <Col md={3}>
             <Button
               onClick={() => {
-                Axios_sample();
+                PostLocation();
               }}
             >
               新規に自動販売機を登録(現在地)
