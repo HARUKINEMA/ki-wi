@@ -23,7 +23,7 @@ const PostLocation = (): json => {
 
   axios
     .post<json>(
-      "http://140.83.54.33/api/machine?lat=" +
+      "https://140.83.54.33/api/machine?lat=" +
         myPosition.lat +
         "&lng=" +
         myPosition.lng
