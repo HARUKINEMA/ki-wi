@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
 import { Building, AreaContainer, AreaContainerProps } from "./AreaContainer";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row, Modal } from "react-bootstrap";
 import { Card, CardContainer, CardContainerProps } from "./CardContainer";
 import { Usage } from "./Usage";
 import { Footer } from "./Footer";
@@ -178,6 +178,9 @@ const App = (): JSX.Element => {
   const [centerState, setCenterState] = useState<Location>(center);
   const [markersJsxState, setMarkersJsxState] =
     useState<JSX.Element[]>(markersJsx);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   function MakeMarker(idx: number, popupsJSX: JSX.Element[]) {
     const locationMarker = {
@@ -401,7 +404,7 @@ const App = (): JSX.Element => {
           <Col md={3}>
             <Button
               onClick={() => {
-                PostLocation();
+                handleShow();
               }}
             >
               新規に自動販売機を登録(現在地)
@@ -427,6 +430,26 @@ const App = (): JSX.Element => {
             <Footer />
           </Col>
         </Row>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>確認!!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>現在地を送信しますか?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              閉じる
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                handleClose();
+                PostLocation();
+              }}
+            >
+              送信
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </div>
   );
