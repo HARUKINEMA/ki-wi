@@ -4,12 +4,45 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import * as data from "./drinking_machine.json";
 import { Building, AreaContainer, AreaContainerProps } from "./AreaContainer";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row, Modal } from "react-bootstrap";
 import { Card, CardContainer, CardContainerProps } from "./CardContainer";
 import { Usage } from "./Usage";
 import { Footer } from "./Footer";
 import logo from "./logo.png";
 import { SearchForm } from "./ProductContainer";
+import axios from "axios";
+
+const myPosition = { lat: 0, lng: 0 };
+interface json {
+  location: number[];
+}
+
+const PostLocation = (): json => {
+  // エラー用に空データを準備
+  let return_Json: json = { location: [0, 0] };
+
+  axios
+    .post<json>(
+      "https://140.83.54.33/api/machine?lat=" +
+        myPosition.lat +
+        "&lng=" +
+        myPosition.lng
+    )
+    .then((results) => {
+      return_Json = results.data;
+      console.log("通信成功");
+      console.log(return_Json);
+      // 成功したら取得できたデータを返す
+      return return_Json;
+    })
+    .catch((error) => {
+      console.log("通信失敗");
+      console.log(error.status);
+      // 失敗したときは空のjsonを返す
+    });
+  return return_Json;
+};
+
 function SetCenter(type: Building): Location {
   let center: Location = { lat: 0, lng: 0 };
   if (type == Building.COMMON_EDUCATIONAL) {
@@ -145,6 +178,9 @@ const App = (): JSX.Element => {
   const [centerState, setCenterState] = useState<Location>(center);
   const [markersJsxState, setMarkersJsxState] =
     useState<JSX.Element[]>(markersJsx);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   function MakeMarker(idx: number, popupsJSX: JSX.Element[]) {
     const locationMarker = {
@@ -306,17 +342,26 @@ const App = (): JSX.Element => {
             <img src={logo} alt={"non"} />
           </Col>
         </Row>
+
         <Row>
           <Col md={12}>
             <Usage />
           </Col>
+        </Row>
+
+        <Row>
           <Col md={12}>
             <a href="https://forms.gle/kETEXwQpzEgjS9cx6">
               フィードバックリンク:このサイトの改善にご協力ください(googleアカウントが必要です)
             </a>
           </Col>
         </Row>
-        <p>エリア選択</p>
+        <br />
+        <Row>
+          <Col md={4}>
+            <h3>エリア選択</h3>
+          </Col>
+        </Row>
         <Row>
           <Col md={4}>
             <AreaContainer
@@ -328,7 +373,13 @@ const App = (): JSX.Element => {
           </Col>
         </Row>
         <br />
-        <p>カード使用選択</p>
+
+        <Row>
+          <Col md={4}>
+            <h3>カード使用選択</h3>
+          </Col>
+        </Row>
+
         <Row>
           <Col md={4}>
             <CardContainer
@@ -349,12 +400,28 @@ const App = (): JSX.Element => {
           </Col>
         </Row>
         <Row>
+          <Col md={9}></Col>
+          <Col md={3}>
+            <Button
+              onClick={() => {
+                handleShow();
+              }}
+            >
+              新規に自動販売機を登録(現在地)
+            </Button>
+          </Col>
+        </Row>
+        <Row>
           <Col md={12}>
             <Map
               center={centerState}
               markers={markersJsxState}
               popup={popup}
               nSize={zoomSize}
+              myPosition={(lat: number, lng: number) => {
+                myPosition.lat = lat;
+                myPosition.lng = lng;
+              }}
             />
           </Col>
         </Row>
@@ -363,6 +430,26 @@ const App = (): JSX.Element => {
             <Footer />
           </Col>
         </Row>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>確認!!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>現在地を送信しますか?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              閉じる
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                handleClose();
+                PostLocation();
+              }}
+            >
+              送信
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </div>
   );
