@@ -11,6 +11,9 @@ import { Footer } from "./Footer";
 import logo from "./logo.png";
 import { SearchForm } from "./ProductContainer";
 import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const myPosition = { lat: 0, lng: 0 };
 interface json {
@@ -21,12 +24,16 @@ const PostLocation = (): json => {
   // エラー用に空データを準備
   let return_Json: json = { location: [0, 0] };
 
+  let BASE_API = "http://localhost:8080";
+
+  if (process.env.REACT_APP_ENV == "product") {
+    BASE_API = "https://140.83.54.33";
+  }
+  console.log(`process.env.REACT_APP_ENV = ${process.env.REACT_APP_ENV}`);
+  console.log(`BASE_API=${BASE_API}`);
   axios
     .post<json>(
-      "https://140.83.54.33/api/machine?lat=" +
-        myPosition.lat +
-        "&lng=" +
-        myPosition.lng
+      BASE_API + "/api/machine?lat=" + myPosition.lat + "&lng=" + myPosition.lng
     )
     .then((results) => {
       return_Json = results.data;

@@ -1,4 +1,3 @@
-import * as dotenv from "dotenv";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import React, { useState } from "react";
 
@@ -18,7 +17,6 @@ export interface MapProps {
 const Map = (props: MapProps): JSX.Element => {
   const URL =
     "https://4.bp.blogspot.com/-sdhuHWjgfCo/UYOsrFBf5RI/AAAAAAAARKs/THaabR1hDq4/s400/umi_kani.png";
-  dotenv.config();
   const containerStyle = {
     width: "100%",
     height: "80vh",
