@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef} from "react";
 import Map, { Location } from "./Map";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
@@ -19,6 +19,8 @@ const myPosition = { lat: 0, lng: 0 };
 interface json {
   location: number[];
 }
+
+
 
 const PostLocation = (): json => {
   // エラー用に空データを準備
@@ -49,41 +51,6 @@ const PostLocation = (): json => {
     });
   return return_Json;
 };
-
-const PostImage = (): json => {
-  // エラー用に空データを準備
-  let return_Json: json = { location: [0, 0] };
-
-  let BASE_API = "http://localhost:8080";
-
-  if (process.env.REACT_APP_ENV == "product") {
-    BASE_API = "https://140.83.54.33";
-  }
-
-
-  console.log(`process.env.REACT_APP_ENV = ${process.env.REACT_APP_ENV}`);
-  console.log(`BASE_API=${BASE_API}`);
-  axios
-
-    .post<json>(
-      BASE_API + "/api/machine?lat=" + myPosition.lat + "&lng=" + myPosition.lng
-    )
-    .then((results) => {
-      return_Json = results.data;
-      console.log("通信成功");
-      console.log(return_Json);
-      // 成功したら取得できたデータを返す
-      return return_Json;
-    })
-    .catch((error) => {
-      console.log("通信失敗");
-      console.log(error.status);
-      // 失敗したときは空のjsonを返す
-    });
-  return return_Json;
-  
-};
-
 
 function SetCenter(type: Building): Location {
   let center: Location = { lat: 0, lng: 0 };
@@ -223,6 +190,7 @@ const App = (): JSX.Element => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   function MakeMarker(idx: number, popupsJSX: JSX.Element[]) {
     const locationMarker = {
@@ -452,19 +420,24 @@ const App = (): JSX.Element => {
               新規に自動販売機を登録(現在地)
             </Button>
           </Col>
-
           <Col md={3}>
             <div>
-              <button>新規に自販機の画像を登録</button>
-            <input
-              type={'file'}
-              onChange={() => {
-                handleShow();
-              }}
-            />
+              <Button onClick={() => {
+                if (inputRef.current != null){
+                  inputRef.current.click()
+                }
+                }}>新規に自販機の画像を登録</Button>
+              <input
+              hidden={true}
+                type={"file"}
+                ref={inputRef}
+                onChange={() => {
+                  console.log(inputRef.current);
+                  handleShow();
+                }}
+              />
             </div>
           </Col>
-
         </Row>
         <Row>
           <Col md={12}>
