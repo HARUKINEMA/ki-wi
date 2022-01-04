@@ -1,4 +1,4 @@
-import React, { useState, useRef} from "react";
+import React, { useState, useRef } from "react";
 import Map, { Location } from "./Map";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
@@ -19,8 +19,6 @@ const myPosition = { lat: 0, lng: 0 };
 interface json {
   location: number[];
 }
-
-
 
 const PostLocation = (): json => {
   // エラー用に空データを準備
@@ -422,20 +420,33 @@ const App = (): JSX.Element => {
           </Col>
           <Col md={3}>
             <div>
-              <Button onClick={() => {
-                if (inputRef.current != null){
-                  inputRef.current.click()
-                }
-                }}>新規に自販機の画像を登録</Button>
+              <Button
+                onClick={() => {
+                  if (inputRef.current != null) {
+                    inputRef.current.click();
+                  }
+                }}
+              >
+                新規に自販機の画像を登録
+              </Button>
               <input
-              hidden={true}
+                hidden={true}
                 type={"file"}
                 ref={inputRef}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  if (event.target.files != null){
-                    console.log(
-                      event.target.files[0]
-                      )
+                  if (event.target.files != null) {
+                    const data = new FormData();
+                    data.append("file", event.target.files[0]);
+
+                    const url = "http://localhost:8080/api/image";
+                    axios
+                      .post(url, data)
+                      .then((e) => {
+                        console.log(e);
+                      })
+                      .catch((e) => {
+                        console.log(e);
+                      });
                   }
                 }}
               />
