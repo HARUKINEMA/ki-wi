@@ -431,9 +431,12 @@ const App = (): JSX.Element => {
               hidden={true}
                 type={"file"}
                 ref={inputRef}
-                onChange={() => {
-                  console.log(inputRef.current);
-                  handleShow();
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  if (event.target.files != null){
+                    console.log(
+                      event.target.files[0]
+                      )
+                  }
                 }}
               />
             </div>
