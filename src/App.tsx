@@ -50,6 +50,41 @@ const PostLocation = (): json => {
   return return_Json;
 };
 
+const PostImage = (): json => {
+  // エラー用に空データを準備
+  let return_Json: json = { location: [0, 0] };
+
+  let BASE_API = "http://localhost:8080";
+
+  if (process.env.REACT_APP_ENV == "product") {
+    BASE_API = "https://140.83.54.33";
+  }
+
+
+  console.log(`process.env.REACT_APP_ENV = ${process.env.REACT_APP_ENV}`);
+  console.log(`BASE_API=${BASE_API}`);
+  axios
+
+    .post<json>(
+      BASE_API + "/api/machine?lat=" + myPosition.lat + "&lng=" + myPosition.lng
+    )
+    .then((results) => {
+      return_Json = results.data;
+      console.log("通信成功");
+      console.log(return_Json);
+      // 成功したら取得できたデータを返す
+      return return_Json;
+    })
+    .catch((error) => {
+      console.log("通信失敗");
+      console.log(error.status);
+      // 失敗したときは空のjsonを返す
+    });
+  return return_Json;
+  
+};
+
+
 function SetCenter(type: Building): Location {
   let center: Location = { lat: 0, lng: 0 };
   if (type == Building.COMMON_EDUCATIONAL) {
@@ -407,7 +442,7 @@ const App = (): JSX.Element => {
           </Col>
         </Row>
         <Row>
-          <Col md={9}></Col>
+          <Col md={6}></Col>
           <Col md={3}>
             <Button
               onClick={() => {
@@ -417,6 +452,19 @@ const App = (): JSX.Element => {
               新規に自動販売機を登録(現在地)
             </Button>
           </Col>
+
+          <Col md={3}>
+            <div>
+              <button>新規に自販機の画像を登録</button>
+            <input
+              type={'file'}
+              onChange={() => {
+                handleShow();
+              }}
+            />
+            </div>
+          </Col>
+
         </Row>
         <Row>
           <Col md={12}>
