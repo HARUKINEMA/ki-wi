@@ -12,6 +12,7 @@ import logo from "./logo.png";
 import { SearchForm } from "./ProductContainer";
 import axios from "axios";
 import dotenv from "dotenv";
+import base64 from 'react-native-base64'
 
 dotenv.config();
 
@@ -435,12 +436,13 @@ const App = (): JSX.Element => {
                 ref={inputRef}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   if (event.target.files != null) {
+                    alert(event.target.files[0]);
                     const data = new FormData();
-                    data.append("file", event.target.files[0]);
+                    base64.encode(event.target.files[0]);
 
                     const url = "http://localhost:8080/api/image";
                     axios
-                      .post(url, data)
+                      .post(url, data,{headers:{'content-type': 'multipart/form-data',},})
                       .then((e) => {
                         console.log(e);
                       })
