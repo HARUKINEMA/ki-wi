@@ -12,7 +12,6 @@ import logo from "./logo.png";
 import { SearchForm } from "./ProductContainer";
 import axios from "axios";
 import dotenv from "dotenv";
-import base64 from "react-native-base64";
 
 dotenv.config();
 
@@ -437,12 +436,17 @@ const App = (): JSX.Element => {
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   if (event.target.files != null) {
                     const reader = new FileReader();
+                    const fileName = event.target.files[0].name;
                     reader.onload = function (event) {
-                      const data = JSON.stringify({ data: window.btoa(
-                        encodeURIComponent(
-                          escape(event.target?.result as string)
-                        )
-                      )})
+                      const data = JSON.stringify({
+                        data: window.btoa(
+                          encodeURIComponent(
+                            escape(event.target?.result as string)
+                          )
+                        ),
+                        name: fileName
+                      });
+                      console.log(fileName);
                       const url = "http://localhost:8080/api/image";
                       console.log("送信直前");
                       axios
@@ -455,7 +459,7 @@ const App = (): JSX.Element => {
                         .catch((e) => {
                           console.log(e);
                         });
-                        console.log("完了!")
+                      console.log("完了!");
                     };
                     reader.readAsText(event.target.files[0]);
                   }
