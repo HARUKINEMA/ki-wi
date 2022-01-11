@@ -465,7 +465,7 @@ const App = (): JSX.Element => {
             <a href="https://forms.gle/pzD3zvFqxzoHQSzw5">
               画像はここから送信してください
             </a>
-          </Col>   
+          </Col>
         </Row>
         <Row>
           <Col md={12}>
