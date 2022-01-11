@@ -12,7 +12,7 @@ import logo from "./logo.png";
 import { SearchForm } from "./ProductContainer";
 import axios from "axios";
 import dotenv from "dotenv";
-import base64 from "react-native-base64";
+//import base64 from "react-native-base64";
 
 dotenv.config();
 
@@ -437,19 +437,23 @@ const App = (): JSX.Element => {
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   if (event.target.files != null) {
                     const reader = new FileReader();
-                    reader.onload = function(event){
-                      const data = window.btoa(encodeURIComponent( escape(event.target?.result as string)))
+                    reader.onload = function (event) {
+                      const data = window.btoa(
+                        encodeURIComponent(
+                          escape(event.target?.result as string)
+                        )
+                      );
                       const url = "http://localhost:8080/api/image";
                       axios
-                      .post(url,data, {
-                        headers: { "content-type": "multipart/form-data" },
-                      })
-                      .then((e) => {
-                        console.log(e);
-                      })
-                      .catch((e) => {
-                        console.log(e);
-                      });
+                        .post(url, data, {
+                          headers: { "content-type": "multipart/form-data" },
+                        })
+                        .then((e) => {
+                          console.log(e);
+                        })
+                        .catch((e) => {
+                          console.log(e);
+                        });
                     };
                     reader.readAsText(event.target.files[0]);
                   }
@@ -457,6 +461,11 @@ const App = (): JSX.Element => {
               />
             </div>
           </Col>
+          <Col md={12}>
+            <a href="https://forms.gle/pzD3zvFqxzoHQSzw5">
+              画像はここから送信してください
+            </a>
+          </Col>   
         </Row>
         <Row>
           <Col md={12}>
