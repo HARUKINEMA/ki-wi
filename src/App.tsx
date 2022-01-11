@@ -437,19 +437,25 @@ const App = (): JSX.Element => {
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   if (event.target.files != null) {
                     const reader = new FileReader();
-                    reader.onload = function(event){
-                      const data = window.btoa(encodeURIComponent( escape(event.target?.result as string)))
+                    reader.onload = function (event) {
+                      const data = JSON.stringify({ data: window.btoa(
+                        encodeURIComponent(
+                          escape(event.target?.result as string)
+                        )
+                      )})
                       const url = "http://localhost:8080/api/image";
+                      console.log("送信直前");
                       axios
-                      .post(url,data, {
-                        headers: { "content-type": "multipart/form-data" },
-                      })
-                      .then((e) => {
-                        console.log(e);
-                      })
-                      .catch((e) => {
-                        console.log(e);
-                      });
+                        .post(url, data, {
+                          headers: { "content-type": "application/json" },
+                        })
+                        .then((e) => {
+                          console.log(e);
+                        })
+                        .catch((e) => {
+                          console.log(e);
+                        });
+                        console.log("完了!")
                     };
                     reader.readAsText(event.target.files[0]);
                   }
