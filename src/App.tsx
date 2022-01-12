@@ -430,6 +430,7 @@ const App = (): JSX.Element => {
               </a>
             </div>
           </Col>
+
         </Row>
         <Row>
           <Col md={12}>
