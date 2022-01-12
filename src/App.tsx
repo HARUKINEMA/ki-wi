@@ -421,51 +421,15 @@ const App = (): JSX.Element => {
           </Col>
           <Col md={3}>
             <div>
-              <Button
-                onClick={() => {
-                  if (inputRef.current != null) {
-                    inputRef.current.click();
-                  }
-                }}
+              <a 
+                className="btn btn-primary"
+                href="https://forms.gle/pzD3zvFqxzoHQSzw5"
+                role="button"
               >
                 新規に自販機の画像を登録
-              </Button>
-              <input
-                hidden={true}
-                type={"file"}
-                ref={inputRef}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  if (event.target.files != null) {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                      const data = window.btoa(
-                        encodeURIComponent(
-                          escape(event.target?.result as string)
-                        )
-                      );
-                      const url = "http://localhost:8080/api/image";
-                      axios
-                        .post(url, data, {
-                          headers: { "content-type": "multipart/form-data" },
-                        })
-                        .then((e) => {
-                          console.log(e);
-                        })
-                        .catch((e) => {
-                          console.log(e);
-                        });
-                    };
-                    reader.readAsText(event.target.files[0]);
-                  }
-                }}
-              />
+              </a>
             </div>
           </Col>
-          <Col md={12}>
-            <a href="https://forms.gle/pzD3zvFqxzoHQSzw5">
-              画像はここから送信してください
-            </a>
-          </Col>   
         </Row>
         <Row>
           <Col md={12}>
