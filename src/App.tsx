@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Map, { Location } from "./Map";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
@@ -189,7 +189,7 @@ const App = (): JSX.Element => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  //const inputRef = useRef<HTMLInputElement | null>(null);
 
   function MakeMarker(idx: number, popupsJSX: JSX.Element[]) {
     const locationMarker = {
@@ -421,7 +421,7 @@ const App = (): JSX.Element => {
           </Col>
           <Col md={3}>
             <div>
-              <a 
+              <a
                 className="btn btn-primary"
                 href="https://forms.gle/pzD3zvFqxzoHQSzw5"
                 role="button"
@@ -430,7 +430,6 @@ const App = (): JSX.Element => {
               </a>
             </div>
           </Col>
-
         </Row>
         <Row>
           <Col md={12}>
