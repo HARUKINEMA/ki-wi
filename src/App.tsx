@@ -438,13 +438,13 @@ const App = (): JSX.Element => {
                     const reader = new FileReader();
                     const fileName = event.target.files[0].name;
                     reader.onload = function (event) {
+                      console.log(event.target?.result as string)
+                      const buff = Buffer.from(event.target?.result as string, 'utf-8');
+                      // decode buffer as Base64
+                      const base64 = buff.toString('base64');
                       const data = JSON.stringify({
-                        data: window.btoa(
-                          encodeURIComponent(
-                            escape(event.target?.result as string)
-                          )
-                        ),
-                        name: fileName
+                        data: base64,
+                        name: fileName,
                       });
                       console.log(fileName);
                       const url = "http://localhost:8080/api/image";
