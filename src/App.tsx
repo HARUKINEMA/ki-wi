@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Map, { Location } from "./Map";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { InfoWindow, Marker } from "@react-google-maps/api";
@@ -12,7 +12,7 @@ import logo from "./logo.png";
 import { SearchForm } from "./ProductContainer";
 import axios from "axios";
 import dotenv from "dotenv";
-import base64 from "react-native-base64";
+//import base64 from "react-native-base64";
 
 dotenv.config();
 
@@ -189,7 +189,7 @@ const App = (): JSX.Element => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  //const inputRef = useRef<HTMLInputElement | null>(null);
 
   function MakeMarker(idx: number, popupsJSX: JSX.Element[]) {
     const locationMarker = {
@@ -421,40 +421,13 @@ const App = (): JSX.Element => {
           </Col>
           <Col md={3}>
             <div>
-              <Button
-                onClick={() => {
-                  if (inputRef.current != null) {
-                    inputRef.current.click();
-                  }
-                }}
+              <a
+                className="btn btn-primary"
+                href="https://forms.gle/pzD3zvFqxzoHQSzw5"
+                role="button"
               >
                 新規に自販機の画像を登録
-              </Button>
-              <input
-                hidden={true}
-                type={"file"}
-                ref={inputRef}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  if (event.target.files != null) {
-                    const reader = new FileReader();
-                    reader.onload = function(event){
-                      const data = window.btoa(encodeURIComponent( escape(event.target?.result as string)))
-                      const url = "http://localhost:8080/api/image";
-                      axios
-                      .post(url,data, {
-                        headers: { "content-type": "multipart/form-data" },
-                      })
-                      .then((e) => {
-                        console.log(e);
-                      })
-                      .catch((e) => {
-                        console.log(e);
-                      });
-                    };
-                    reader.readAsText(event.target.files[0]);
-                  }
-                }}
-              />
+              </a>
             </div>
           </Col>
         </Row>
