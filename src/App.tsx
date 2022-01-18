@@ -12,6 +12,7 @@ import logo from "./logo.png";
 import { SearchForm } from "./ProductContainer";
 import axios from "axios";
 import dotenv from "dotenv";
+//import base64 from "react-native-base64";
 
 dotenv.config();
 
@@ -188,6 +189,7 @@ const App = (): JSX.Element => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  //const inputRef = useRef<HTMLInputElement | null>(null);
 
   function MakeMarker(idx: number, popupsJSX: JSX.Element[]) {
     const locationMarker = {
@@ -407,7 +409,7 @@ const App = (): JSX.Element => {
           </Col>
         </Row>
         <Row>
-          <Col md={9}></Col>
+          <Col md={6}></Col>
           <Col md={3}>
             <Button
               onClick={() => {
@@ -416,6 +418,17 @@ const App = (): JSX.Element => {
             >
               新規に自動販売機を登録(現在地)
             </Button>
+          </Col>
+          <Col md={3}>
+            <div>
+              <a
+                className="btn btn-primary"
+                href="https://forms.gle/pzD3zvFqxzoHQSzw5"
+                role="button"
+              >
+                新規に自販機の画像を登録
+              </a>
+            </div>
           </Col>
         </Row>
         <Row>
